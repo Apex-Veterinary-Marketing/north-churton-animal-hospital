@@ -131,11 +131,12 @@ const reviews = (await getAllTestimonials())
   .a-center { text-align: center; margin-block-start: var(--space-xl); }
 
   /* Hero */
-  .a-hero { position: relative; min-height: 100dvh; display: flex; align-items: center; color: var(--white); overflow: hidden; background: var(--main-dark); }
+  /* Fills the screen below the fixed header. */
+  .a-hero { position: relative; min-height: calc(100dvh - var(--header-height)); display: flex; align-items: center; color: var(--white); overflow: hidden; background: var(--main-dark); }
   /* Full viewport height; the focal point (the dog) is set per site in home.ts. */
   .a-hero__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .a-hero__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, var(--alt-bg) 0%, var(--main-o50) 55%, transparent 100%); }
-  .a-hero__inner { position: relative; width: 100%; max-width: var(--container-max); margin-inline: auto; padding: calc(var(--header-height) + var(--space-xl)) var(--space-md) var(--space-3xl); }
+  .a-hero__inner { position: relative; width: 100%; max-width: var(--container-max); margin-inline: auto; padding: var(--space-xl) var(--space-md) var(--space-3xl); }
   .a-hero__title { color: inherit; font-size: var(--font-size-hero); line-height: 1.02; letter-spacing: -0.02em; margin: var(--space-lg) 0; max-width: 13ch; }
   .a-hero__lede { font-size: var(--font-size-lg); line-height: 1.6; max-width: 34rem; margin: 0 0 var(--space-xl); color: var(--white); }
   .a-hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
@@ -193,7 +194,7 @@ const reviews = (await getAllTestimonials())
   /* Phones: show the whole 16:9 video (dog uncropped) above the text; the hero still fills the screen. */
   @media (max-width: 767px) {
     .a-hero { flex-direction: column; align-items: stretch; justify-content: flex-start; }
-    .a-hero__video { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; margin-block-start: calc(var(--header-height) + var(--space-lg)); }
+    .a-hero__video { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; }
     .a-hero__scrim { display: none; }
     .a-hero__inner { padding-block-start: var(--space-xl); }
   }

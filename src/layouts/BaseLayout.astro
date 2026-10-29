@@ -177,15 +177,8 @@ const graph = normalizeIds(
       :where(h1, h2, h3, h4, h5, h6) { color: var(--heading); font-family: var(--font-heading); }
       :where(a) { color: var(--main); }
       :focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
-      /* No top padding here (2026-09-08) — the header is fixed+transparent
-         by default (see Header.astro), so Hero/PageHeaderBanner need to
-         render full-bleed behind it, not pushed below it. Each of those
-         self-manages a top padding of var(--header-height) internally so
-         their own content still clears the header while their background
-         extends up to the viewport edge. Every page opens with one of the
-         two (404 included) — a page that didn't would render its content
-         under the fixed header. */
-      main { padding-block-start: 0; padding-block-end: 0; }
+      /* The header is opaque (always white), so every page starts below it. */
+      main { padding-block-start: var(--header-height); padding-block-end: 0; }
       @media (max-width: 900px) { main { padding-block-end: var(--callbar-height); } }
       body.has-open-modal { overflow: hidden; }
 

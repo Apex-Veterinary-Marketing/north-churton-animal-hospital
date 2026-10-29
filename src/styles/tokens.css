@@ -84,8 +84,8 @@
   --focus-ring: var(--main-light); /* :focus-visible outline color */
 
   /* Header state (JS toggles .is-scrolled; Header.astro re-points these) */
-  --header-bg: transparent;
-  --header-fg: var(--white);
+  --header-bg: var(--white); /* Design: always-white sticky header so the full-color logo shows (Constanza, 2026-10-29) */
+  --header-fg: var(--heading);
 
   /* Footer */
   --footer-bg: var(--main-dark);
@@ -146,7 +146,7 @@
    * (Breakpoints can't be variables inside @media; they are the literals
    * 900px (nav/callbar switch) and 767px (narrow) — see AGENTS.md.)
    */
-  --header-height: 6.5rem; /* fixed header incl. utility bar; heroes pad by this */
+  --header-height: 8.0625rem; /* fixed header incl. utility bar (measured 129px at every width); main pads by this */
   --callbar-height: 5.5rem; /* mobile call bar; BaseLayout pads <main> by this */
   --logo-height: 3.25rem; /* Design: horizontal logo with tagline needs the extra height to stay legible */
   --page-header-height: 31.25rem; /* PageHeaderBanner min-height — at least 500px (Constanza) */

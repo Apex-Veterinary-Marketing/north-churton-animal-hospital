@@ -30,7 +30,7 @@ const { heading, eyebrow, image, imageAlt = "" } = Astro.props;
      renders full-bleed behind the fixed, transparent-by-default header
      (see Header.astro / BaseLayout.astro) instead of being pushed below
      it — content still clears the header, the dark bg/overlay doesn't. */
-  .page-header-banner { position: relative; display: flex; align-items: center; justify-content: center; min-height: var(--page-header-height); background: var(--main-dark); overflow: hidden; text-align: center; padding: var(--space-lg); padding-block-start: calc(var(--header-height) + var(--space-lg)); }
+  .page-header-banner { position: relative; display: flex; align-items: center; justify-content: center; min-height: var(--page-header-height); background: var(--main-dark); overflow: hidden; text-align: center; padding: var(--space-lg); }
   .page-header-banner__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
   .page-header-banner__overlay { position: absolute; inset: 0; background: var(--overlay-color); z-index: 1; }
   .page-header-banner__content { position: relative; z-index: 2; color: var(--on-main); max-width: 48rem; }
