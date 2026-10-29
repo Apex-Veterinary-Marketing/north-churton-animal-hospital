@@ -10,6 +10,7 @@ import { phoneHref } from "../../lib/utils/phone";
 import { initialsOf } from "../../lib/utils/initials";
 import HomeVisit from "./HomeVisit.astro";
 import TestimonialSlider from "../TestimonialSlider.astro";
+import PawTrail from "../PawTrail.astro";
 import { getAllTestimonials } from "../../lib/data/testimonials";
 import welcomePhoto from "../../assets/site/owner-holding-cat.jpg";
 
@@ -31,9 +32,10 @@ const reviews = (await getAllTestimonials())
       <span class="eyebrow eyebrow--on-dark" data-animate="fade">Veterinary hospital &middot; {site.cityState}</span>
       <h1 class="a-hero__title">{headline}</h1>
       <p class="a-hero__lede">{lede}</p>
+      {/* Hero actions (Constanza, 2026-10-29): Pet Portal like both old sites, plus services. The phone lives in the header and call bar. */}
       <div class="a-hero__actions">
-        <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
-        <a class="btn btn--ghost-light" href={phoneHref(site)}>Call <span class="nowrap">{site.phoneNumber}</span></a>
+        <a class="btn btn--cta btn--has-icon" href={site.portalUrl ?? site.bookingUrl}>Pet Portal <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--ghost-light" href="/services">Our Services</a>
       </div>
       <ul class="a-pills">
         {highlights.map((h) => <li><span class="a-pills__dot" aria-hidden="true"></span>{h}</li>)}
@@ -42,6 +44,7 @@ const reviews = (await getAllTestimonials())
   </section>
 
   <section class="a-welcome">
+    <PawTrail placement="bottom-left" />
     <div class="a-welcome__inner">
       <div class="a-welcome__media" data-reveal>
         <div class="a-frame">
@@ -58,6 +61,7 @@ const reviews = (await getAllTestimonials())
   </section>
 
   <section class="a-services">
+    <PawTrail placement="top-right" />
     <div class="a-head" data-reveal>
       <span class="eyebrow">Our services</span>
       <h2 class="a-h2">Wellness, dentistry and surgery under one roof</h2>
@@ -79,6 +83,7 @@ const reviews = (await getAllTestimonials())
 
   {doctors.length > 0 && (
     <section class="a-doctor">
+      <PawTrail placement="top-left" tone="light" />
       <div class="a-head a-head--on-dark" data-reveal>
         <span class="eyebrow eyebrow--on-dark">Meet your veterinarian{doctors.length > 1 ? "s" : ""}</span>
       </div>
@@ -99,6 +104,7 @@ const reviews = (await getAllTestimonials())
 
   {reviews.length > 0 && (
     <section class="a-reviews">
+      <PawTrail placement="bottom-right" />
       <div class="a-head" data-reveal>
         <span class="eyebrow">Reviews</span>
         <h2 class="a-h2">What {site.addressLocality} pet owners say</h2>
@@ -118,6 +124,8 @@ const reviews = (await getAllTestimonials())
 
 
 <style>
+  /* Sections host decorative paw trails behind their content. */
+  .a-welcome, .a-services, .a-doctor, .a-reviews { position: relative; isolation: isolate; overflow: hidden; }
   .a-h2 { font-size: var(--font-size-section); line-height: 1.1; letter-spacing: -0.01em; margin: var(--space-md) 0 var(--space-lg); }
   .a-head { max-width: 46rem; margin: 0 auto var(--space-2xl); text-align: center; }
   .a-center { text-align: center; margin-block-start: var(--space-xl); }
@@ -185,7 +193,7 @@ const reviews = (await getAllTestimonials())
   /* Phones: show the whole 16:9 video (dog uncropped) above the text; the hero still fills the screen. */
   @media (max-width: 767px) {
     .a-hero { flex-direction: column; align-items: stretch; justify-content: flex-start; }
-    .a-hero__video { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; margin-block-start: calc(var(--header-height) + var(--space-sm)); }
+    .a-hero__video { position: relative; inset: auto; height: auto; aspect-ratio: 16 / 9; margin-block-start: calc(var(--header-height) + var(--space-lg)); }
     .a-hero__scrim { display: none; }
     .a-hero__inner { padding-block-start: var(--space-xl); }
   }

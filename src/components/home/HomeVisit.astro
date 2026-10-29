@@ -1,9 +1,14 @@
 ---
-// Homepage "plan your visit" block: hours,
-// address + landmark, map, service-area towns. `tone` picks the surface.
+// Homepage "Our locations" block: one tab per location, this site's first
+// ("You're here") and selected; the sister location's tab shows its own
+// address, hours, phone, directions, map and a link to its website (same
+// pattern as Ark's Locations.astro). The sister call link dials that
+// location's own tracking number and is marked data-sister-location — the one
+// exception check:links allows. All data comes from site.ts.
 import { getHomeData } from "../../lib/data/home";
 import { phoneHref } from "../../lib/utils/phone";
 import PaymentLogos from "../PaymentLogos.astro";
+import PawTrail from "../PawTrail.astro";
 
 export interface Props {
   tone?: "light" | "soft";
@@ -11,60 +16,156 @@ export interface Props {
 }
 const { tone = "light", headingClass = "" } = Astro.props;
 const { site, landmark, serviceArea, payment } = await getHomeData();
+const other = site.sisterLocation;
 const street = (site.address ?? "").replace(/^\d+\s+/, ""); // "4306 N Roxboro St" -> "N Roxboro St"
+const city = (site.cityState ?? "").split(",")[0];
 ---
 
 <section class:list={["visit", `visit--${tone}`]}>
+  <PawTrail placement="top-right" />
   <div class="visit__inner">
-    <div class="visit__copy" data-reveal>
-      <span class="eyebrow">Plan your visit</span>
-      <h2 class:list={["visit__title", headingClass]}>{street ? `Easy to find on ${street}` : "Plan your visit"}</h2>
-      <dl class="visit__facts">
-        <div>
-          <dt>Address</dt>
-          <dd>
-            {site.address}<br />{site.addressLine2}<br />
-            <span class="visit__muted">{landmark}</span>
-          </dd>
-        </div>
-        <div>
-          <dt>Hours</dt>
-          <dd set:html={site.hours} />
-        </div>
-        <div>
-          <dt>Phone</dt>
-          <dd><a href={phoneHref(site)} class="nowrap">{site.phoneNumber}</a></dd>
-        </div>
-      </dl>
-      <div class="visit__payment">
-        <p class="visit__payment-label">{payment}</p>
-        <PaymentLogos />
-      </div>
-      <div class="visit__actions">
-        <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
-        {site.addressLink && <a class="btn btn--outline" href={site.addressLink} target="_blank" rel="noopener">Get directions</a>}
-      </div>
-    </div>
-    <div class="visit__map" data-reveal>
-      {site.mapEmbedLink && (
-        <iframe src={site.mapEmbedLink} title={`Map to ${site.practiceName}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      )}
-      {serviceArea.length > 0 && (
-        <div class="visit__area">
-          <p class="visit__area-label">Proudly serving</p>
-          <ul>{serviceArea.map((town) => <li>{town}</li>)}</ul>
+    <div class="visit__head" data-reveal>
+      <span class="eyebrow">{other ? "Our locations" : "Plan your visit"}</span>
+      <h2 class:list={["visit__title", headingClass]}>{other ? "Two neighborhood hospitals, one caring team" : street ? `Easy to find on ${street}` : "Plan your visit"}</h2>
+      {other && (
+        <div class="visit__tabs" role="tablist" aria-label="Our locations" data-loc-tabs>
+          <button type="button" role="tab" class="visit__tab" id="loc-tab-here" aria-controls="loc-panel-here" aria-selected="true">
+            {city} <span class="visit__here">You're here</span>
+          </button>
+          <button type="button" role="tab" class="visit__tab" id="loc-tab-other" aria-controls="loc-panel-other" aria-selected="false" tabindex="-1">
+            {other.cityState.split(",")[0]}
+          </button>
         </div>
       )}
     </div>
+
+    <div class="visit__panel" id="loc-panel-here" role={other ? "tabpanel" : undefined} aria-labelledby={other ? "loc-tab-here" : undefined}>
+      <div class="visit__copy" data-reveal>
+        <h3 class="visit__name">{site.practiceName}</h3>
+        <dl class="visit__facts">
+          <div>
+            <dt>Address</dt>
+            <dd>
+              {site.address}<br />{site.addressLine2}<br />
+              <span class="visit__muted">{landmark}</span>
+            </dd>
+          </div>
+          <div>
+            <dt>Hours</dt>
+            <dd set:html={site.hours} />
+          </div>
+          <div>
+            <dt>Phone</dt>
+            <dd><a href={phoneHref(site)} class="nowrap">{site.phoneNumber}</a></dd>
+          </div>
+        </dl>
+        <div class="visit__payment">
+          <p class="visit__payment-label">{payment}</p>
+          <PaymentLogos />
+        </div>
+        <div class="visit__actions">
+          <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+          {site.addressLink && <a class="btn btn--outline" href={site.addressLink} target="_blank" rel="noopener">Get directions</a>}
+        </div>
+      </div>
+      <div class="visit__map" data-reveal>
+        {site.mapEmbedLink && (
+          <iframe src={site.mapEmbedLink} title={`Map to ${site.practiceName}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        )}
+        {serviceArea.length > 0 && (
+          <div class="visit__area">
+            <p class="visit__area-label">Proudly serving</p>
+            <ul>{serviceArea.map((town) => <li>{town}</li>)}</ul>
+          </div>
+        )}
+      </div>
+    </div>
+
+    {other && (
+      <div class="visit__panel" id="loc-panel-other" role="tabpanel" aria-labelledby="loc-tab-other" hidden>
+        <div class="visit__copy">
+          <h3 class="visit__name">{other.name}</h3>
+          {other.description && <p class="visit__muted">{other.description}</p>}
+          <dl class="visit__facts">
+            <div>
+              <dt>Address</dt>
+              <dd>
+                {other.address}<br />{other.addressLine2}
+                {other.addressLandmark && <><br /><span class="visit__muted">{other.addressLandmark}</span></>}
+              </dd>
+            </div>
+            <div>
+              <dt>Hours</dt>
+              <dd set:html={other.hours} />
+            </div>
+            {other.phoneNumber && (
+              <div>
+                <dt>Phone</dt>
+                <dd><a href={`tel:${other.callTrackingNumber ?? other.phoneNumber.replace(/[^\d+]/g, "")}`} class="nowrap" data-sister-location>{other.phoneNumber}</a></dd>
+              </div>
+            )}
+          </dl>
+          <div class="visit__actions">
+            {other.url && <a class="btn btn--cta btn--has-icon" href={other.url} target="_blank" rel="noopener">Visit the {other.cityState.split(",")[0]} website <span class="btn__icon" aria-hidden="true">&rarr;</span></a>}
+            {other.addressLink && <a class="btn btn--outline" href={other.addressLink} target="_blank" rel="noopener">Get directions</a>}
+          </div>
+        </div>
+        <div class="visit__map">
+          {other.mapEmbedLink && (
+            <iframe src={other.mapEmbedLink} title={`Map to ${other.name}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          )}
+          {other.serviceAreas && other.serviceAreas.length > 0 && (
+            <div class="visit__area">
+              <p class="visit__area-label">Proudly serving</p>
+              <ul>{other.serviceAreas.map((town) => <li>{town}</li>)}</ul>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
   </div>
 </section>
 
+<script>
+  // Location tabs: click or arrow keys switch panels (one visible at a time).
+  document.querySelectorAll<HTMLElement>("[data-loc-tabs]").forEach((list) => {
+    const tabs = [...list.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (tab: HTMLButtonElement) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        const panel = document.getElementById(t.getAttribute("aria-controls") ?? "");
+        if (panel) panel.hidden = !on;
+      });
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => select(tab));
+      tab.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        const next = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+        select(next);
+        next.focus();
+      });
+    });
+  });
+</script>
+
 <style>
-  .visit { padding: var(--space-3xl) var(--space-md); }
+  .visit { position: relative; isolation: isolate; overflow: hidden; padding: var(--space-3xl) var(--space-md); }
   .visit--light { background: var(--white); }
   .visit--soft { background: var(--solid-bg); }
-  .visit__inner { max-width: var(--container-max); margin-inline: auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-2xl); align-items: start; }
+  .visit__inner { position: relative; max-width: var(--container-max); margin-inline: auto; }
+  .visit__head { margin-block-end: var(--space-xl); }
   .visit__title { font-size: var(--font-size-section); line-height: 1.1; margin: var(--space-md) 0 var(--space-lg); }
+  .visit__tabs { display: inline-flex; flex-wrap: wrap; gap: var(--space-2xs); padding: var(--space-2xs); border-radius: var(--radius-pill); background: var(--solid-bg); }
+  .visit--soft .visit__tabs { background: var(--white); }
+  .visit__tab { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-xs) var(--space-lg); border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--main); font: inherit; font-weight: 700; cursor: pointer; transition: background-color var(--motion-duration-base) var(--motion-ease), color var(--motion-duration-base) var(--motion-ease); }
+  .visit__tab[aria-selected="true"] { background: var(--main); color: var(--on-main); }
+  .visit__here { padding: 0 var(--space-xs); border-radius: var(--radius-pill); background: var(--cta); color: var(--on-cta); font-size: var(--font-size-xs); letter-spacing: 0.06em; text-transform: uppercase; }
+  .visit__panel { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-2xl); align-items: start; }
+  .visit__panel[hidden] { display: none; }
+  .visit__name { margin: 0 0 var(--space-lg); font-size: var(--font-size-2xl); }
   .visit__facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin: 0 0 var(--space-xl); }
   .visit__facts dt { font-size: var(--font-size-xs); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-block-end: var(--space-2xs); }
   .visit__facts dd { margin: 0; }
@@ -81,7 +182,7 @@ const street = (site.address ?? "").replace(/^\d+\s+/, ""); // "4306 N Roxboro S
   .visit__area ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
   @media (max-width: 900px) {
     .visit { padding: var(--space-2xl) var(--space-md); }
-    .visit__inner { grid-template-columns: 1fr; }
+    .visit__panel { grid-template-columns: 1fr; }
   }
   @media (max-width: 767px) {
     .visit__facts { grid-template-columns: 1fr; }

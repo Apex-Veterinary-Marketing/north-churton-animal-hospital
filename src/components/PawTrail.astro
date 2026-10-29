@@ -1,0 +1,38 @@
+---
+// Decorative trail of paw prints (Constanza, 2026-10-29: "more paw prints,
+// low opacity, smooth — more vet vibe"). Purely visual: aria-hidden, no
+// pointer events, absolutely placed behind the content of a parent that sets
+// `position: relative; isolation: isolate` (z-index -1 stays above the
+// parent's background but under its text). The paws are a CSS mask, so their color is a token:
+// brand navy on light sections, white on dark ones (tone="light").
+export interface Props {
+  placement?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
+  tone?: "brand" | "light";
+}
+const { placement = "top-right", tone = "brand" } = Astro.props;
+---
+
+<span class:list={["paw-trail", `paw-trail--${placement}`, `paw-trail--${tone}`]} aria-hidden="true"></span>
+
+<style>
+  .paw-trail {
+    position: absolute;
+    z-index: -1;
+    width: 15rem;
+    height: 24rem;
+    pointer-events: none;
+    opacity: var(--paw-opacity);
+    background: var(--main);
+    /* Four paws walking diagonally; each paw = main pad + four toes. */
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 384'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cellipse cx='32' cy='42' rx='14' ry='12'/%3E%3Cellipse cx='14' cy='25' rx='6' ry='8'/%3E%3Cellipse cx='26' cy='14' rx='6' ry='8'/%3E%3Cellipse cx='38' cy='14' rx='6' ry='8'/%3E%3Cellipse cx='50' cy='25' rx='6' ry='8'/%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23p' transform='translate(150 300) rotate(-20 32 32)'/%3E%3Cuse href='%23p' transform='translate(70 220) rotate(-25 32 32)'/%3E%3Cuse href='%23p' transform='translate(140 120) rotate(-20 32 32)'/%3E%3Cuse href='%23p' transform='translate(60 30) rotate(-25 32 32)'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 384'%3E%3Cdefs%3E%3Cg id='p'%3E%3Cellipse cx='32' cy='42' rx='14' ry='12'/%3E%3Cellipse cx='14' cy='25' rx='6' ry='8'/%3E%3Cellipse cx='26' cy='14' rx='6' ry='8'/%3E%3Cellipse cx='38' cy='14' rx='6' ry='8'/%3E%3Cellipse cx='50' cy='25' rx='6' ry='8'/%3E%3C/g%3E%3C/defs%3E%3Cuse href='%23p' transform='translate(150 300) rotate(-20 32 32)'/%3E%3Cuse href='%23p' transform='translate(70 220) rotate(-25 32 32)'/%3E%3Cuse href='%23p' transform='translate(140 120) rotate(-20 32 32)'/%3E%3Cuse href='%23p' transform='translate(60 30) rotate(-25 32 32)'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .paw-trail--light { background: var(--white); opacity: var(--paw-opacity-on-dark); }
+  .paw-trail--top-right { top: var(--space-lg); right: var(--space-lg); }
+  .paw-trail--top-left { top: var(--space-lg); left: var(--space-lg); transform: scaleX(-1); }
+  .paw-trail--bottom-right { bottom: var(--space-lg); right: var(--space-lg); transform: rotate(180deg) scaleX(-1); }
+  .paw-trail--bottom-left { bottom: var(--space-lg); left: var(--space-lg); transform: rotate(180deg); }
+  @media (max-width: 767px) {
+    .paw-trail { width: 9rem; height: 14rem; }
+  }
+</style>

@@ -28,6 +28,8 @@ import { getAllSocialLinks } from "../lib/data/socialLinks";
 import { SOCIAL_ICON_CLASSES, SOCIAL_LABELS } from "../lib/icons/social";
 import { BLOG_BASE } from "../lib/data/blog";
 import ReviewsBand from "./ReviewsBand.astro";
+import PawTrail from "./PawTrail.astro";
+import { phoneHref } from "../lib/utils/phone";
 
 const site = await getSiteInfo();
 const socialLinks = await getAllSocialLinks();
@@ -48,6 +50,7 @@ const generalServices = allServices.filter(
 ---
 
 <footer class="footer">
+  <PawTrail placement="top-right" tone="light" />
   {/* Fixed-position floating pill (desktop only) — not in-flow footer content, see ReviewsBand.astro. */}
   <ReviewsBand />
 
@@ -127,6 +130,27 @@ const generalServices = allServices.filter(
     </details>
   </div>
 
+  {site.sisterLocation && (
+    <div class="footer__locations">
+      <p class="footer__locations-title">Our locations</p>
+      <ul class="footer__locations-list">
+        <li class="footer__location">
+          <strong>{site.practiceName} <span class="footer__here">You're here</span></strong>
+          <span>{site.address}, {site.addressLine2}</span>
+          {site.phoneNumber && <a href={phoneHref(site)}>{site.phoneNumber}</a>}
+        </li>
+        <li class="footer__location">
+          <strong>{site.sisterLocation.name}</strong>
+          {site.sisterLocation.address && <span>{site.sisterLocation.address}, {site.sisterLocation.addressLine2}</span>}
+          {site.sisterLocation.phoneNumber && (
+            <a href={`tel:${site.sisterLocation.callTrackingNumber ?? site.sisterLocation.phoneNumber.replace(/[^\d+]/g, "")}`} data-sister-location>{site.sisterLocation.phoneNumber}</a>
+          )}
+          {site.sisterLocation.url && <a href={site.sisterLocation.url} target="_blank" rel="noopener">Visit the {site.sisterLocation.cityState.split(",")[0]} website &rarr;</a>}
+        </li>
+      </ul>
+    </div>
+  )}
+
   <div class="footer__bottom">
     <p class="footer__copyright">&copy; {year} {site.practiceName}. All rights reserved.</p>
     <a class="footer__signature" href="https://veterinarymarketing.com/" target="_blank" rel="noopener noreferrer">
@@ -136,7 +160,16 @@ const generalServices = allServices.filter(
 </footer>
 
 <style>
-  .footer { background: var(--footer-bg); color: var(--footer-text); padding-block-start: var(--space-xl); }
+  .footer { position: relative; isolation: isolate; overflow: hidden; background: var(--footer-bg); color: var(--footer-text); padding-block-start: var(--space-xl); }
+  /* Both locations of the practice, side by side (sister sites list each other). */
+  .footer__locations { max-width: var(--container-max); margin: var(--space-xl) auto 0; padding: var(--space-lg) var(--space-md) 0; border-block-start: 1px solid var(--footer-border); }
+  .footer__locations-title { margin: 0 0 var(--space-md); font-weight: 600; font-size: var(--font-size-md); color: var(--footer-heading); }
+  .footer__locations-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--space-lg); }
+  .footer__location { display: grid; gap: var(--space-2xs); font-size: var(--font-size-sm); }
+  .footer__location strong { color: var(--footer-heading); font-size: var(--font-size-md); }
+  .footer__location a { color: inherit; text-decoration: none; font-weight: 600; transition: color var(--motion-duration-base) var(--motion-ease); }
+  .footer__location a:hover { color: var(--cta); }
+  .footer__here { margin-inline-start: var(--space-2xs); padding: 0 var(--space-xs); border-radius: var(--radius-pill); background: var(--cta); color: var(--on-cta); font-size: var(--font-size-xs); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; vertical-align: middle; }
   .footer__grid { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--space-md); display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: var(--space-lg); }
   .footer__column { padding-block-end: var(--space-sm); }
   .footer__column-title { font-weight: 600; font-size: var(--font-size-md); color: var(--footer-heading); cursor: default; padding-block: var(--space-xs); }

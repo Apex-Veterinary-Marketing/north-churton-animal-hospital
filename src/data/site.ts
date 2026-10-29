@@ -39,6 +39,7 @@ export interface SiteInfo {
   // closing block, CTA bands) reads these instead of hard-coding a route.
   bookingUrl?: string;
   bookingLabel?: string;
+  portalUrl?: string; // client/pet portal (the homepage hero's "Pet Portal" button)
   businessDescription?: string; // one or two plain sentences for the schema Business node
   // Machine-readable hours for schema (hours above is display HTML), e.g.
   // [{ dayOfWeek: ["Monday","Tuesday"], opens: "08:00", closes: "18:00" }]
@@ -75,6 +76,25 @@ export interface SiteInfo {
   // use e.g. ["LocalBusiness", "ProfessionalService"]. A mobile business
   // also sets mobileVet + serviceAreaOfCoverage (→ areaServed).
   businessSchemaType?: string | string[];
+  // The practice's OTHER location, which has its own website (same pattern as
+  // Ark). Shown as a tab in the homepage "Our locations" block and in the
+  // footer. Its call link dials that location's own tracking number and is
+  // marked data-sister-location, the one exception check:links allows.
+  sisterLocation?: {
+    name: string;
+    cityState: string; // "Hillsborough, NC"
+    address?: string;
+    addressLine2?: string; // "City, ST 00000"
+    addressLandmark?: string;
+    addressLink?: string; // Google Maps directions link
+    phoneNumber?: string; // display number
+    callTrackingNumber?: string; // that location's own tracking number
+    description?: string;
+    hours?: string; // rich text/HTML
+    serviceAreas?: string[];
+    mapEmbedLink?: string;
+    url?: string; // that location's website
+  };
   // Google tag IDs (gtag.js). Loaded only on trackingHosts, so local and
   // preview visits never reach the client's analytics.
   ga4Id?: string; // e.g. "G-XXXXXXXXXX"
@@ -104,6 +124,7 @@ export const siteInfo: SiteInfo = {
   // Appointments go through the client's TheVetHero portal (same setup as Durham, 2026-10-29).
   bookingUrl: "https://pp.thevethero.com/north-churton-animal-hospital/login",
   bookingLabel: "Book an Appointment",
+  portalUrl: "https://pp.thevethero.com/north-churton-animal-hospital/login",
   businessDescription:
     "North Churton Animal Hospital is a full-service veterinary hospital in Hillsborough, NC, caring for dogs and cats since 2006 with wellness exams, diagnostics, dentistry and surgery.",
   openingHoursSpecification: [
@@ -123,6 +144,23 @@ export const siteInfo: SiteInfo = {
   logoWhite: "/logo-white.png",
   logoColor: "/logo-color.png",
   logoFooter: "/logo-footer.png",
+  // Sister location: Durham Animal Hospital, same owner.
+  sisterLocation: {
+    name: "Durham Animal Hospital",
+    cityState: "Durham, NC",
+    address: "4306 N Roxboro St",
+    addressLine2: "Durham, NC 27704",
+    addressLandmark: "Directly behind Captain D's",
+    addressLink:
+      "https://www.google.com/maps/search/?api=1&query=Durham+Animal+Hospital%2C+4306+N+Roxboro+St%2C+Durham%2C+NC+27704",
+    phoneNumber: "(919) 620-7387",
+    callTrackingNumber: "+19842533420", // Durham's Twilio number
+    hours: "<p>Mon&ndash;Fri: 8:00am&ndash;5:30pm<br>Sat&ndash;Sun: Closed</p><p>Please call for doctor&rsquo;s appointment hours.</p>",
+    serviceAreas: ["Durham", "Rougemont", "Hurdle Mills", "Creedmoor", "Roxboro", "Chapel Hill", "Raleigh"],
+    mapEmbedLink:
+      "https://maps.google.com/maps?q=Durham+Animal+Hospital%2C+4306+N+Roxboro+St%2C+Durham%2C+NC+27704&output=embed",
+    url: "https://durhamanimalhospital.com",
+  },
   // The client's existing GA4 property (from the old site), so reporting continues after launch.
   ga4Id: "G-GQ2CSWYRGD",
   trackingHosts: ["northchurtonanimalhospital.com", "www.northchurtonanimalhospital.com"],

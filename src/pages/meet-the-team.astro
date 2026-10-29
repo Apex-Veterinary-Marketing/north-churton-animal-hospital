@@ -9,6 +9,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
 import DoctorGrid from "../components/DoctorGrid.astro";
 import StaffGrid from "../components/StaffGrid.astro";
+import PawTrail from "../components/PawTrail.astro";
 import { getAllDoctors } from "../lib/data/doctors";
 import { getAllStaff } from "../lib/data/staff";
 import bannerPhoto from "../assets/site/kitten-and-puppy-cuddling.jpg";
@@ -58,6 +59,7 @@ const clinicBlurbs = [
   </section>
 
   <section class="about-clinic">
+    <PawTrail placement="bottom-right" />
     <div class="page-section">
       <h2>About Our Practice</h2>
       <div class="about-clinic__grid">
@@ -85,5 +87,5 @@ const clinicBlurbs = [
   /* Doctors and staff sit in one section so the two groups read together. */
   .team__group { margin-block-start: var(--space-xl); }
   .team__label { margin: 0 0 var(--space-md); font-size: var(--font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
-  .about-clinic { background: var(--solid-bg); }
+  .about-clinic { position: relative; isolation: isolate; overflow: hidden; background: var(--solid-bg); }
 </style>
