@@ -40,6 +40,7 @@ export interface SiteInfo {
   bookingUrl?: string;
   bookingLabel?: string;
   portalUrl?: string; // client/pet portal (the homepage hero's "Pet Portal" button)
+  portalLabel?: string; // top-bar portal button label, as on the old site
   businessDescription?: string; // one or two plain sentences for the schema Business node
   // Machine-readable hours for schema (hours above is display HTML), e.g.
   // [{ dayOfWeek: ["Monday","Tuesday"], opens: "08:00", closes: "18:00" }]
@@ -125,6 +126,7 @@ export const siteInfo: SiteInfo = {
   bookingUrl: "https://pp.thevethero.com/north-churton-animal-hospital/login",
   bookingLabel: "Book an Appointment",
   portalUrl: "https://pp.thevethero.com/north-churton-animal-hospital/login",
+  portalLabel: "Patient Portal",
   businessDescription:
     "North Churton Animal Hospital is a full-service veterinary hospital in Hillsborough, NC, caring for dogs and cats since 2006 with wellness exams, diagnostics, dentistry and surgery.",
   openingHoursSpecification: [

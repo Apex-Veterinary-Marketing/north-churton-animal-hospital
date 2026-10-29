@@ -10,6 +10,7 @@ export const jobs = [
     slug: "veterinary-csr",
     title: "Veterinary Client Services Representative (CSR)",
     shortTitle: "Veterinary CSR",
+    navLabel: "Veterinary CSR", // as on the old site's Careers menu
     pay: "$16.00 – $19.00 / hour",
     teaser: "Be the vital first point of contact for our busy practice. Manage our front desk, greet our local regulars, and coordinate appointments.",
     metaDescription: "Apply for our Veterinary Client Services Representative job in Hillsborough, NC. Full-time, $16–$19/hour with health insurance, PTO and a retirement plan.",
@@ -29,6 +30,7 @@ export const jobs = [
     slug: "veterinary-assistant",
     title: "Veterinary Assistant",
     shortTitle: "Veterinary Assistant",
+    navLabel: "Vet Assistant",
     pay: "$17.00 – $19.00 / hour",
     teaser: "Step into a fast-moving medical environment, assisting with surgery, lab work, and patient care. We will train the right person.",
     metaDescription: "Apply for our Veterinary Assistant job in Hillsborough, NC. Full-time, $17–$19/hour, with room to grow into a leadership role. We will train the right person.",

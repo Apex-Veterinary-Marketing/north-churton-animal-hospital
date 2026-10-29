@@ -70,7 +70,7 @@ const socialLinks = await getAllSocialLinks();
           </a>
         ))}
         {/* Top-bar button = the client portal, as on the old site; opens in a new tab so visitors keep the site (Constanza, 2026-10-29). */}
-        {(site.portalUrl || site.bookingUrl) && <a class="header__cta" href={site.portalUrl ?? site.bookingUrl} target="_blank" rel="noopener">Client Portal</a>}
+        {(site.portalUrl || site.bookingUrl) && <a class="header__cta" href={site.portalUrl ?? site.bookingUrl} target="_blank" rel="noopener">{site.portalLabel ?? "Client Portal"}</a>}
       </div>
     </div>
   </div>
@@ -108,7 +108,8 @@ const socialLinks = await getAllSocialLinks();
               once dropped How'd We Do?, the only way to open the reputation
               widget). Rename or re-route items; don't remove them. */}
           <ul class="header__dropdown-menu">
-            <li><a href="/meet-the-team">Meet the Team</a></li>
+            {/* Labels and order follow the client's old menu (Constanza, 2026-10-29). */}
+            <li><a href="/meet-the-team">Our Staff</a></li>
             {/* No clinic photos yet, so Payment Plans (from the old About menu) takes the gallery's place. */}
             <li><a href="/payment-plans">Payment Plans</a></li>
             <li><a href="/reviews">Reviews</a></li>
@@ -119,9 +120,10 @@ const socialLinks = await getAllSocialLinks();
 
         <li class="header__menu-item header__menu-item--dropdown">
           <button class="header__menu-link header__dropdown-toggle" type="button" data-dropdown-toggle aria-expanded="false">
-            Services <span class="header__caret" aria-hidden="true"></span>
+            Veterinary Services <span class="header__caret" aria-hidden="true"></span>
           </button>
           <ul class="header__dropdown-menu header__dropdown-menu--services">
+            <li class="header__dropdown-item header__dropdown-item--all"><a href="/your-first-visit">Your First Vet Visit</a></li>
             {servicesByCategory.map(({ category, services }) => (
               <li class="header__dropdown-item header__dropdown-item--has-submenu">
                 <button type="button" class="header__submenu-toggle" data-dropdown-toggle aria-expanded="false">
@@ -134,7 +136,6 @@ const socialLinks = await getAllSocialLinks();
                 </ul>
               </li>
             ))}
-            <li class="header__dropdown-item header__dropdown-item--all"><a href="/your-first-visit">Your First Vet Visit</a></li>
             <li class="header__dropdown-item header__dropdown-item--all"><a href="/online-forms">New Client Form</a></li>
             <li class="header__dropdown-item header__dropdown-item--all"><a href="/services">All Services</a></li>
           </ul>
@@ -149,7 +150,7 @@ const socialLinks = await getAllSocialLinks();
           </button>
           <ul class="header__dropdown-menu">
             <li><a href="/careers">Careers</a></li>
-            {jobs.map((job) => <li><a href={`/careers/${job.slug}`}>{job.shortTitle} Job</a></li>)}
+            {jobs.map((job) => <li><a href={`/careers/${job.slug}`}>{job.navLabel}</a></li>)}
           </ul>
         </li>
 
