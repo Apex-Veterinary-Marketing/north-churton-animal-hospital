@@ -137,7 +137,8 @@ export const siteInfo: SiteInfo = {
     "<p>Triangle Veterinary Referral Hospital<br>608 Morreene Rd, Durham, NC 27705<br>(919) 489-0615</p>",
   footerAbout:
     "North Churton Animal Hospital has cared for Hillsborough dogs and cats since 2006, with wellness exams, diagnostics, dental care, and surgery from a caring team.",
-  googleReviewsLink: "https://goo.gl/maps/q19BJMJYLYg6FGk29",
+  // Opens the Google "write a review" box for this location (Place ID from Constanza, 2026-10-29).
+  googleReviewsLink: "https://search.google.com/local/writereview?placeid=ChIJfcM_MTffrIkRGVKdrBPwOE0",
   facebookReviewsLink: "https://www.facebook.com/NorthChurtonAnimalHospital/reviews",
   // REPLACE with the real domain at launch (the old site's address, until DNS moves).
   url: "https://northchurtonanimalhospital.com",

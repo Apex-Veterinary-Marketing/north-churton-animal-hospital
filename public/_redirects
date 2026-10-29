@@ -54,8 +54,8 @@
 /6-important-questions-to-ask-your-pets-vet/                           /blog/6-important-questions-to-ask-your-pets-vet/            301
 /7-tips-for-easing-your-dogs-separation-anxiety                        /blog/7-tips-for-easing-your-dogs-separation-anxiety/        301
 /7-tips-for-easing-your-dogs-separation-anxiety/                       /blog/7-tips-for-easing-your-dogs-separation-anxiety/        301
-/7-ways-to-calm-your-pets-anxiety                                      /blog/7-ways-to-calm-your-pets-anxiety/                      301
-/7-ways-to-calm-your-pets-anxiety/                                     /blog/7-ways-to-calm-your-pets-anxiety/                      301
+/7-ways-to-calm-your-pets-anxiety                                      /blog/                                                       301
+/7-ways-to-calm-your-pets-anxiety/                                     /blog/                                                       301
 /9-foods-pet-should-never-eat                                          /blog/9-foods-pet-should-never-eat/                          301
 /9-foods-pet-should-never-eat/                                         /blog/9-foods-pet-should-never-eat/                          301
 /adopted-a-shelter-pet-7-things-you-need-to-know                       /blog/adopted-a-shelter-pet-7-things-you-need-to-know/       301
@@ -117,3 +117,6 @@
 /winter-hazards-for-pets                                               /blog/winter-hazards-for-pets/                               301
 /winter-hazards-for-pets/                                              /blog/winter-hazards-for-pets/                               301
 /blog/page/*                                                           /blog/                                                       301
+# Retired post (named a doctor who is no longer with the practice, 2026-10-29).
+/blog/7-ways-to-calm-your-pets-anxiety                                 /blog/                                                       301
+/blog/7-ways-to-calm-your-pets-anxiety/                                /blog/                                                       301
