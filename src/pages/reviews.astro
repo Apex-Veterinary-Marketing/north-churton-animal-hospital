@@ -1,0 +1,44 @@
+---
+// Reviews — every client review from the old /reviews/ page (ported
+// verbatim into the testimonials collection), plus links to leave a review.
+// How'd We Do? (the reputation widget) stays in the About menu as well.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeaderBanner from "../components/PageHeaderBanner.astro";
+import { getAllTestimonials } from "../lib/data/testimonials";
+import { getSiteInfo } from "../lib/data/site";
+import banner from "../assets/services/photos/service-17-cover.jpg";
+
+const site = await getSiteInfo();
+const reviews = await getAllTestimonials();
+---
+
+<BaseLayout title="Reviews" description="Read what Hillsborough pet owners say about Dr. James Miller and the team at North Churton Animal Hospital, and share your own experience on Google or Facebook.">
+  <PageHeaderBanner heading="What Our Clients Say" image={banner} imageAlt="Gray tabby cat stretching in a cat bed" />
+  <div class="reviews">
+    <div class="reviews__intro">
+      <p>Thank you to every family who has trusted us with their pets. Here's what some of them have shared.</p>
+      <div class="reviews__actions">
+        {site.googleReviewsLink && <a class="btn btn--cta" href={site.googleReviewsLink} target="_blank" rel="noopener">Leave us a Google review</a>}
+        {site.facebookReviewsLink && <a class="btn btn--outline" href={site.facebookReviewsLink} target="_blank" rel="noopener">Review us on Facebook</a>}
+      </div>
+    </div>
+    <ul class="reviews__grid">
+      {reviews.map((r) => (
+        <li class="review">
+          <p class="review__text">&ldquo;{r.data.testimonial}&rdquo;</p>
+          <p class="review__name">{r.data.name}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .reviews { max-width: var(--container-max); margin-inline: auto; padding: var(--space-2xl) var(--space-md); }
+  .reviews__intro { max-width: var(--container-max-narrow); margin: 0 auto var(--space-2xl); text-align: center; font-size: var(--font-size-md); }
+  .reviews__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm); }
+  .reviews__grid { list-style: none; margin: 0; padding: 0; columns: 3 18rem; column-gap: var(--space-lg); }
+  .review { break-inside: avoid; margin-block-end: var(--space-lg); padding: var(--space-lg); border-radius: var(--radius-xl); background: var(--solid-bg); }
+  .review__text { margin: 0 0 var(--space-md); line-height: 1.7; white-space: pre-line; }
+  .review__name { margin: 0; font-weight: 700; color: var(--main); }
+</style>

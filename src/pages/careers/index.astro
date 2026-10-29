@@ -1,0 +1,50 @@
+---
+// Careers — ported from the client's /careers/ (copy verbatim except "urban", which described Durham; the job list
+// comes from src/data/careers.ts).
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeaderBanner from "../../components/PageHeaderBanner.astro";
+import { jobs, careersEmail } from "../../data/careers";
+import banner from "../../assets/services/photos/service-5-cover.jpg";
+---
+
+<BaseLayout title="Careers" description="North Churton Animal Hospital in Hillsborough, NC is hiring. Explore our full-time veterinary assistant and CSR jobs, with competitive pay and benefits.">
+  <PageHeaderBanner heading="Careers" image={banner} imageAlt="Yellow Labrador playing on a living room rug" />
+  <div class="page-body prose">
+    <h2>Veterinary Careers in Hillsborough, NC</h2>
+    <p>Are you looking for veterinary assistant or CSR jobs in Hillsborough, NC? At North Churton Animal Hospital, we combine high-quality medicine with a fun-loving, professional atmosphere.</p>
+    <p>We operate as a sister clinic to Durham Animal Hospital in Durham, NC. While we occasionally share shift coverage to support one another, our North Churton location serves a dynamic, diverse, and growing pet community.</p>
+
+    <h2>Current Openings at North Churton Animal Hospital</h2>
+    <p><strong>Select a position below to view full responsibilities, specific shift requirements, and to submit your application.</strong></p>
+    <ul class="jobs">
+      {jobs.map((job) => (
+        <li>
+          <a class="job-card" href={`/careers/${job.slug}`}>
+            <span class="job-card__title">{job.title}</span>
+            <span class="job-card__meta">Full-Time &middot; {job.pay}</span>
+            <span class="job-card__text">{job.teaser}</span>
+            <span class="job-card__more">View job &amp; apply <span aria-hidden="true">&rarr;</span></span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <h2>Universal Team Benefits</h2>
+    <p><strong>No matter which hospital you call home, full-time team members receive the same top-tier support:</strong></p>
+    <ul>
+      <li><strong>Financial &amp; Future:</strong> Competitive hourly pay, retirement plans, and generous employee discounts for your own pets.</li>
+      <li><strong>Health &amp; Wellness:</strong> Comprehensive health insurance and earned Paid Time Off (PTO) to ensure you can recharge.</li>
+      <li><strong>Growth:</strong> Flexible scheduling options and professional development assistance to help you advance your veterinary career.</li>
+    </ul>
+    <p>Have a question? Please get in touch: <a href={`mailto:${careersEmail}`}>{careersEmail}</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .jobs { list-style: none; padding: 0; display: grid; gap: var(--space-md); }
+  .job-card { display: grid; gap: var(--space-2xs); padding: var(--space-lg); border-radius: var(--radius-xl); background: var(--solid-bg); color: var(--text); text-decoration: none; transition: transform var(--motion-duration-base) var(--motion-ease); }
+  .job-card:hover { transform: translateY(-3px); }
+  .job-card__title { font-family: var(--font-heading); font-size: var(--font-size-lg); font-weight: 600; color: var(--heading); }
+  .job-card__meta { font-size: var(--font-size-sm); font-weight: 600; color: var(--main); }
+  .job-card__more { color: var(--main); font-weight: 600; }
+</style>

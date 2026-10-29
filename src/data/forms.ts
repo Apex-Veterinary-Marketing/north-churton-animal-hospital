@@ -46,6 +46,8 @@
 // Leave a key out (or empty) and that form renders GravityFormEmbed's
 // placeholder instead — safe to fill these in one at a time during client
 // intake, never blocks a build.
-export const gravityFormEmbeds: Record<string, string> = {
-  // contact: `<iframe src="https://example.com/embed/contact-form/" title="Contact form" loading="lazy" style="width:100%;border:0;min-height:32rem;"></iframe>`,
-};
+// North Churton's forms aren't created yet on onboarding.apexveterinarymarketing.com
+// (2026-10-29). Add each embed here (same pattern as sister site Durham:
+// //onboarding.apexveterinarymarketing.com/gfembed/?f=<id> + gfembed.min.js)
+// for contact, general-information-request, reputation-feedback, new-patient.
+export const gravityFormEmbeds: Record<string, string> = {};

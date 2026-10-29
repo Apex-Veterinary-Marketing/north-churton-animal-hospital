@@ -15,6 +15,7 @@ export const SOCIAL_ICON_CLASSES: Record<SocialIconKey, string> = {
   instagram: "icon-social-instagram",
   tiktok: "icon-social-tik-tok",
   google: "icon-social-google",
+  youtube: "icon-social-youtube",
 };
 
 export const SOCIAL_LABELS: Record<SocialIconKey, string> = {
@@ -24,6 +25,7 @@ export const SOCIAL_LABELS: Record<SocialIconKey, string> = {
   instagram: "Instagram",
   tiktok: "TikTok",
   google: "Google",
+  youtube: "YouTube",
 };
 
 // Review-platform icons for ReputationWidget's "leave a public review" stage.

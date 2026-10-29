@@ -1,0 +1,89 @@
+---
+// Homepage "plan your visit" block: hours,
+// address + landmark, map, service-area towns. `tone` picks the surface.
+import { getHomeData } from "../../lib/data/home";
+import { phoneHref } from "../../lib/utils/phone";
+import PaymentLogos from "../PaymentLogos.astro";
+
+export interface Props {
+  tone?: "light" | "soft";
+  headingClass?: string;
+}
+const { tone = "light", headingClass = "" } = Astro.props;
+const { site, landmark, serviceArea, payment } = await getHomeData();
+const street = (site.address ?? "").replace(/^\d+\s+/, ""); // "4306 N Roxboro St" -> "N Roxboro St"
+---
+
+<section class:list={["visit", `visit--${tone}`]}>
+  <div class="visit__inner">
+    <div class="visit__copy" data-reveal>
+      <span class="eyebrow">Plan your visit</span>
+      <h2 class:list={["visit__title", headingClass]}>{street ? `Easy to find on ${street}` : "Plan your visit"}</h2>
+      <dl class="visit__facts">
+        <div>
+          <dt>Address</dt>
+          <dd>
+            {site.address}<br />{site.addressLine2}<br />
+            <span class="visit__muted">{landmark}</span>
+          </dd>
+        </div>
+        <div>
+          <dt>Hours</dt>
+          <dd set:html={site.hours} />
+        </div>
+        <div>
+          <dt>Phone</dt>
+          <dd><a href={phoneHref(site)} class="nowrap">{site.phoneNumber}</a></dd>
+        </div>
+      </dl>
+      <div class="visit__payment">
+        <p class="visit__payment-label">{payment}</p>
+        <PaymentLogos />
+      </div>
+      <div class="visit__actions">
+        <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+        {site.addressLink && <a class="btn btn--outline" href={site.addressLink} target="_blank" rel="noopener">Get directions</a>}
+      </div>
+    </div>
+    <div class="visit__map" data-reveal>
+      {site.mapEmbedLink && (
+        <iframe src={site.mapEmbedLink} title={`Map to ${site.practiceName}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      )}
+      {serviceArea.length > 0 && (
+        <div class="visit__area">
+          <p class="visit__area-label">Proudly serving</p>
+          <ul>{serviceArea.map((town) => <li>{town}</li>)}</ul>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .visit { padding: var(--space-3xl) var(--space-md); }
+  .visit--light { background: var(--white); }
+  .visit--soft { background: var(--solid-bg); }
+  .visit__inner { max-width: var(--container-max); margin-inline: auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--space-2xl); align-items: start; }
+  .visit__title { font-size: var(--font-size-section); line-height: 1.1; margin: var(--space-md) 0 var(--space-lg); }
+  .visit__facts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin: 0 0 var(--space-xl); }
+  .visit__facts dt { font-size: var(--font-size-xs); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-block-end: var(--space-2xs); }
+  .visit__facts dd { margin: 0; }
+  .visit__facts dd :global(p) { margin: 0 0 var(--space-2xs); }
+  .visit__facts a { font-weight: 600; text-decoration: none; }
+  .visit__muted { color: var(--text-muted); }
+  .visit__payment { margin: 0 0 var(--space-xl); }
+  .visit__payment-label { margin: 0 0 var(--space-sm); color: var(--text-muted); }
+  .visit__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+  .visit__map { display: grid; gap: var(--space-md); }
+  .visit__map iframe { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--radius-xl); box-shadow: var(--shadow-soft); }
+  .visit__area { background: var(--main-dark); color: var(--white); border-radius: var(--radius-xl); padding: var(--space-lg); }
+  .visit__area-label { margin: 0 0 var(--space-xs); font-size: var(--font-size-xs); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cta); }
+  .visit__area ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-md); }
+  @media (max-width: 900px) {
+    .visit { padding: var(--space-2xl) var(--space-md); }
+    .visit__inner { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 767px) {
+    .visit__facts { grid-template-columns: 1fr; }
+  }
+</style>

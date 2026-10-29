@@ -45,28 +45,28 @@
   /* --- Neutrals & text --------------------------------------------------- */
   --white: #ffffff; /* page/card surface; text on dark */
   --text: #333333; /* body copy */
-  --text-muted: #606f87; /* captions, meta, placeholders — brand hue, always
+  --text-muted: #587284; /* captions, meta, placeholders — brand hue, always
                       visibly lighter than --text, AA on every light bg */
   --light-grey: #d1d1d1; /* neutral borders/dividers */
 
   /* --- Backgrounds (very soft, brand-tinted) ----------------------------- */
-  --solid-bg: #f3f5f8; /* soft section/card/hover background (opaque) */
-  --base-bg: #e8ecf17a; /* same tint @48% — for layering over images/other bgs */
-  --alt-bg: #1f304bcc; /* dark brand tint @80% — dark section over an image/pattern
+  --solid-bg: #f2f5f8; /* soft section/card/hover background (opaque) */
+  --base-bg: #e9eef27a; /* same tint @48% — for layering over images/other bgs */
+  --alt-bg: #133c58cc; /* dark brand tint @80% — dark section over an image/pattern
                           (white text stays AA even over a white page) */
 
   /* --- Brand ------------------------------------------------------------- */
-  --main: #16253c; /* primary brand; headings, links, primary buttons */
-  --main-dark: #070c13; /* darkest brand; footer bg, deep sections, hovers */
-  --main-light: #385f99; /* lighter brand; accents, focus ring, link hover */
-  --main-soft: #394b65; /* muted brand; subtle fills, borders on dark */
-  --cta: #008484; /* the action color: primary CTA buttons (white text is AA on it) */
-  --cta-hover: #00191a; /* CTA hover/pressed */
+  --main: #134d74; /* primary brand; headings, links, primary buttons */
+  --main-dark: #0f4268; /* darkest brand; footer bg, deep sections, hovers — hand-set just under the logo navy (#134d74 fails as text on the teal CTA), same rule as sister site Durham (Constanza found near-black too dark) */
+  --main-light: #1d75b1; /* lighter brand; accents, focus ring, link hover */
+  --main-soft: #3c7397; /* muted brand; subtle fills, borders on dark */
+  --cta: #2dc1b6; /* the action color: primary CTA buttons (white text is AA on it) */
+  --cta-hover: #4cd5cb; /* CTA hover/pressed */
 
   /* --- Translucent siblings & effects ------------------------------------ */
   --white-o85: #ffffffd9; /* white @85% — text on dark, glass panels */
-  --main-o50: #16253c80; /* --main @50% — image scrims, tinted overlays */
-  --main-soft-o50: #394b6580; /* --main-soft @50% */
+  --main-o50: #134d7480; /* --main @50% — image scrims, tinted overlays */
+  --main-soft-o50: #3c739780; /* --main-soft @50% */
   --overlay-color: #00000080; /* black @50% — modal/hero scrim */
   --shadow: #0000001a; /* black @10% — the shadow COLOR (see --shadow-* below) */
 
@@ -78,7 +78,7 @@
    * ---------------------------------------------------------------------- */
   --heading: var(--main); /* h1-h6 color */
   --on-main: var(--white); /* text/icons on --main surfaces */
-  --on-cta: var(--white); /* text/icons on --cta buttons. The generator sets this
+  --on-cta: var(--main-dark); /* text/icons on --cta buttons. The generator sets this
                             to --main-dark instead when the brand accent is too
                             light for white text. */
   --focus-ring: var(--main-light); /* :focus-visible outline color */
@@ -105,27 +105,34 @@
   --space-lg: 1.5rem;
   --space-xl: 3rem;
   --space-2xl: 4rem;
+  --space-3xl: 6.5rem; /* Design: section padding on large screens */
 
   /* Type */
-  --font-body: "Inter", system-ui, sans-serif; /* loaded by styles/fonts.css — per-client: swap both, see that file */
-  --font-heading: var(--font-body);
+  --font-body: "Figtree", system-ui, sans-serif; /* loaded by styles/fonts.css — per-client: swap both, see that file */
+  --font-heading: "Outfit", "Figtree", system-ui, sans-serif;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-md: 1.1rem;
   --font-size-lg: 1.25rem;
   --font-size-3xl: 2.25rem;
   --font-size-4xl: 2.75rem;
+  --font-size-2xl: 1.75rem; /* Design: card and pillar titles */
+  --font-size-hero: clamp(2.6rem, 1.6rem + 4vw, 4.75rem); /* Design: homepage H1 */
+  --font-size-section: clamp(2rem, 1.4rem + 2.2vw, 3.1rem); /* Design: homepage H2 */
 
   /* Radius */
   --radius-sm: 3px;
   --radius-md: 6px;
   --radius-lg: 10px;
+  --radius-xl: 1.75rem; /* Design: large cards and photo frames */
+  --radius-pill: 999px; /* Design: pill buttons, eyebrow tags, chips */
 
   /* Shadows — all built from the Base --shadow color */
   --shadow-header: 0 1px 4px var(--shadow);
   --shadow-card: 0 1px 6px var(--shadow);
   --shadow-dropdown: 0 4px 12px var(--shadow);
   --shadow-float: 0 2px 8px var(--shadow), 0 1px 3px var(--shadow); /* floating widgets: pills, raised call button */
+  --shadow-soft: 0 30px 60px -30px var(--shadow), 0 8px 20px -12px var(--shadow); /* Design: diffuse lift for cards and frames */
   --shadow-callbar: 0 -2px 8px var(--shadow); /* bar pinned to the bottom edge (shadow points up) */
 
   /* Containers */
@@ -139,8 +146,8 @@
    */
   --header-height: 6.5rem; /* fixed header incl. utility bar; heroes pad by this */
   --callbar-height: 5.5rem; /* mobile call bar; BaseLayout pads <main> by this */
-  --logo-height: 2.5rem;
-  --page-header-height: 16rem; /* PageHeaderBanner min-height */
+  --logo-height: 3.25rem; /* Design: horizontal logo with tagline needs the extra height to stay legible */
+  --page-header-height: 31.25rem; /* PageHeaderBanner min-height — at least 500px (Constanza) */
   --reviews-pill-left: 5.5em; /* ReviewsBand offset, sits right of the a11y button */
 
   /*

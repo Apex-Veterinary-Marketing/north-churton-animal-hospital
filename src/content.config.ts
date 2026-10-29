@@ -53,6 +53,7 @@ const services = defineCollection({
       customName: z.string().optional(),
       serviceIcon: image().optional(),
       pageHeaderImage: image().optional(),
+      pageHeaderImageAlt: z.string().optional(), // alt text for pageHeaderImage
       contentBlocks: z
         .array(
           z.object({
@@ -61,6 +62,7 @@ const services = defineCollection({
             // "cta": the closing booking block (body + the site's booking
             // button, no image). Standard service page (agency Webflow
             // structure): 3 text+image blocks, then one "cta" block, then FAQs.
+            imageAlt: z.string().optional(), // alt text for this block's photo
             style: z.enum(["default", "cta"]).default("default"),
           })
         )
@@ -131,7 +133,7 @@ const testimonials = defineCollection({
 // src/lib/icons/social.ts's inline-SVG library rather than an image asset,
 // so the icon can inherit color via currentColor (header/footer render it
 // differently depending on scroll/theme state). See Skeleton-Build-Spec.md §6.
-export const SOCIAL_ICON_KEYS = ["linkedin", "facebook", "x", "instagram", "tiktok", "google"] as const;
+export const SOCIAL_ICON_KEYS = ["linkedin", "facebook", "x", "instagram", "tiktok", "google", "youtube"] as const;
 export type SocialIconKey = (typeof SOCIAL_ICON_KEYS)[number];
 
 const socialLinks = defineCollection({

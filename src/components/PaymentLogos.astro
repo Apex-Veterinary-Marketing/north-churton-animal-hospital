@@ -1,0 +1,33 @@
+---
+// Payment and insurance brands the practice accepts, shown as their real logos
+// (Constanza: when Cherry/CareCredit/etc. are mentioned, use the logos).
+// Logos are the brands' own files (withcherry.com, carecredit.com, trupanion.com).
+import { Image } from "astro:assets";
+import cherry from "../assets/site/payments/cherry-logo.svg";
+import careCredit from "../assets/site/payments/carecredit-logo.png";
+import trupanion from "../assets/site/payments/trupanion-logo.png";
+
+export interface Props {
+  surface?: "light" | "card";
+}
+const { surface = "light" } = Astro.props;
+const brands = [
+  { src: cherry, alt: "Cherry payment plans" },
+  { src: careCredit, alt: "CareCredit" },
+  { src: trupanion, alt: "Trupanion pet insurance" },
+];
+---
+
+<ul class:list={["payment-logos", `payment-logos--${surface}`]}>
+  {brands.map((b) => (
+    <li><Image src={b.src} alt={b.alt} height={32} class="payment-logos__img" /></li>
+  ))}
+</ul>
+
+<style>
+  .payment-logos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); }
+  .payment-logos li { display: grid; place-items: center; padding: var(--space-xs) var(--space-md); border-radius: var(--radius-lg); background: var(--white); }
+  .payment-logos--light li { border: 1px solid var(--light-grey); }
+  .payment-logos--card li { box-shadow: var(--shadow-card); }
+  .payment-logos__img { height: 1.75rem; width: auto; }
+</style>

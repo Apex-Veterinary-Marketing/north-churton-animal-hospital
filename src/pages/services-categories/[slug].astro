@@ -24,10 +24,14 @@ export async function getStaticPaths() {
 
 const { category } = Astro.props;
 const services = await getServicesByCategory(category.id);
+// Banner = the first service's cover photo in this category.
+const cover = services.find((s) => s.data.pageHeaderImage);
+const bannerPhoto = cover?.data.pageHeaderImage ?? bannerGeneric;
+const bannerAlt = cover?.data.pageHeaderImageAlt ?? "";
 ---
 
-<BaseLayout title={category.data.name} description={`${category.data.name} services`}>
-  <PageHeaderBanner heading={category.data.name} image={bannerGeneric} />
+<BaseLayout title={category.data.name} description={`${category.data.name} services for dogs and cats at North Churton Animal Hospital in Hillsborough, NC. Learn what to expect and request an appointment with our team.`}>
+  <PageHeaderBanner heading={category.data.name} image={bannerPhoto} imageAlt={bannerAlt} />
   <div class="services-layout">
     <div class="page-section">
       {services.length > 0 ? (

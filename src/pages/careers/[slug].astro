@@ -1,0 +1,41 @@
+---
+// One page per job opening (same URLs as the client's old site:
+// /careers/veterinary-csr, /careers/veterinary-assistant).
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageHeaderBanner from "../../components/PageHeaderBanner.astro";
+import { jobs, careersEmail, applyUrl } from "../../data/careers";
+import banner from "../../assets/services/photos/service-5-cover.jpg";
+
+export function getStaticPaths() {
+  return jobs.map((job) => ({ params: { slug: job.slug }, props: { job } }));
+}
+const { job } = Astro.props;
+---
+
+<BaseLayout title={`${job.shortTitle} Job`} description={job.metaDescription}>
+  <PageHeaderBanner heading={`${job.shortTitle} Job`} image={banner} imageAlt="Yellow Labrador playing on a living room rug" />
+  <div class="page-body prose">
+    <h2>{job.heading}</h2>
+    <h3>{job.intro}</h3>
+    <p><strong>Pay:</strong> {job.pay} &middot; <strong>Job Type:</strong> Full-time</p>
+    {job.body.map((p) => <p>{p}</p>)}
+    <h3>Benefits:</h3>
+    <ul>{job.benefits.map((b) => <li>{b}</li>)}</ul>
+    <h3>Experience:</h3>
+    <ul>{job.experience.map((e) => <li>{e}</li>)}</ul>
+
+    <div class="callout">
+      <h2>To Apply for the {job.shortTitle} Job:</h2>
+      <p>Clicking the button below will open our application in a Google Form, where you can fill out your details and securely upload your resume. A Google (Gmail) account is required to securely upload files through our form.</p>
+      <p><em>Don't have a Google account? To protect your privacy, please do not email your resume. Instead, send a brief message to <a href={`mailto:${careersEmail}`}>{careersEmail}</a> letting us know you'd like to apply, and we will set up a secure alternative for you to submit your documents.</em></p>
+      <a class="btn btn--cta btn--has-icon" href={applyUrl} target="_blank" rel="noopener">Submit Resume <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+    </div>
+    <p class="job__back"><a href="/careers">&larr; All openings</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .callout { margin-block-start: var(--space-xl); }
+  .callout h2 { margin-block-start: 0; font-size: var(--font-size-2xl); }
+  .job__back { margin-block-start: var(--space-lg); }
+</style>

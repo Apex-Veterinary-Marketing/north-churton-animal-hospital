@@ -1,0 +1,4 @@
+---
+name: "Annalisa M."
+testimonial: "I am a 2nd generation Dr. Miller devotee. I have heard horror stories about things people have experienced at vets, so when we moved to Greensboro (45 min away) there was no question in my mind we would be making that drive to take our pets to the same vet my parents have for years. I trust Dr. Miller implicitly with my babies and he has never shown anything but kindness, expert knowledge, and the willingness to do anything it would take to care of my animals as if they were his own. I’m so grateful to have wormed my way into his practice via my folks 🙂. Also, it should be mentioned that the first person you’ll see when you go into the office is Debby, who might be the loveliest human alive. She will instantly help ease any of your anxiety or fear. If you could tell from the rest of this review, I wouldn’t hesitate to recommend Dr. Miller and his team to anyone and will continue to bring our pets here for care."
+---

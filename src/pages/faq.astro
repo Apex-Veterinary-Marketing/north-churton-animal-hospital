@@ -8,12 +8,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
 import FaqAccordion from "../components/FaqAccordion.astro";
 import { getAllServices } from "../lib/data/services";
+import { getSiteInfo } from "../lib/data/site";
+import { withTrackingPhone } from "../lib/utils/phone";
 
+const site = await getSiteInfo();
 const services = await getAllServices();
-const faqs = services.flatMap((s) => s.data.faqs);
+// Answers may carry tel: links — route them to the tracking number like service pages do.
+const faqs = services.flatMap((s) => s.data.faqs).map((f) => ({ ...f, answer: withTrackingPhone(f.answer, site) }));
 ---
 
-<BaseLayout title="FAQs" description="Frequently asked questions.">
+<BaseLayout title="FAQs" description="Answers to common questions about visits, payment options, emergencies and pet care at North Churton Animal Hospital, a full-service veterinary hospital in Hillsborough, NC.">
   <PageHeaderBanner heading="Frequently Asked Questions" />
   <div class="page-section">
     <FaqAccordion faqs={faqs} />

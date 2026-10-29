@@ -33,12 +33,12 @@ const site = await getSiteInfo();
 const socialLinks = await getAllSocialLinks();
 const year = new Date().getFullYear();
 
-const DEDICATED_CATEGORY_IDS = ["dental", "surgery"];
+const DEDICATED_CATEGORY_IDS = ["dental-care", "surgery"];
 const [dentalCategory, surgeryCategory] = await Promise.all(
   DEDICATED_CATEGORY_IDS.map((id) => getServiceCategoryBySlug(id))
 );
 const [dentalServices, surgeryServices, allServices] = await Promise.all([
-  dentalCategory ? getServicesByCategory("dental") : Promise.resolve([]),
+  dentalCategory ? getServicesByCategory("dental-care") : Promise.resolve([]),
   surgeryCategory ? getServicesByCategory("surgery") : Promise.resolve([]),
   getAllServices(),
 ]);
@@ -56,7 +56,7 @@ const generalServices = allServices.filter(
       <summary class="footer__column-title">About Us</summary>
       <div class="footer__about">
         {site.logoWhite || site.logoColor ? (
-          <img class="footer__logo" src={site.logoWhite || site.logoColor} alt={site.practiceName} />
+          <img class="footer__logo" src={site.logoFooter || site.logoWhite || site.logoColor} alt={site.practiceName} />
         ) : (
           <span class="footer__logo-text">{site.practiceName}</span>
         )}
@@ -64,7 +64,7 @@ const generalServices = allServices.filter(
         <ul class="footer__link-list">
           <li><a href="/meet-the-team">Meet the Team</a></li>
           <li><button type="button" class="footer__link-button" data-modal-target="reputation-widget">How'd We Do?</button></li>
-          <li><a href="/photo-gallery">Photo Gallery</a></li>
+          <li><a href="/payment-plans">Payment Plans</a></li>
         </ul>
         <div class="footer__social-icons">
           {socialLinks.map((social) => (
@@ -117,11 +117,12 @@ const generalServices = allServices.filter(
     <details class="footer__column" open>
       <summary class="footer__column-title">Resources</summary>
       <ul class="footer__link-list">
+        <li><a href="/your-first-visit">Your First Vet Visit</a></li>
+        <li><a href="/online-forms">New Client Form</a></li>
         <li><a href="/faq">FAQs</a></li>
-        <li><a href="/online-forms">Online Forms</a></li>
         <li><a href={BLOG_BASE}>Our Blog</a></li>
+        <li><a href="/careers">Careers</a></li>
         <li><a href="/privacy-policy">Privacy Policy</a></li>
-        <li><a href="/terms-of-use">Terms of Use</a></li>
       </ul>
     </details>
   </div>
@@ -137,20 +138,24 @@ const generalServices = allServices.filter(
 <style>
   .footer { background: var(--footer-bg); color: var(--footer-text); padding-block-start: var(--space-xl); }
   .footer__grid { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--space-md); display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: var(--space-lg); }
-  .footer__column { border-block-end: 1px solid var(--footer-border); padding-block-end: var(--space-sm); }
+  .footer__column { padding-block-end: var(--space-sm); }
   .footer__column-title { font-weight: 600; font-size: var(--font-size-md); color: var(--footer-heading); cursor: default; padding-block: var(--space-xs); }
   .footer__link-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-xs); margin-block-start: var(--space-sm); }
   .footer__link-list a, .footer__link-button { color: inherit; text-decoration: none; background: none; border: 0; font: inherit; padding: 0; text-align: start; cursor: pointer; }
-  .footer__link-list a:hover, .footer__link-button:hover { text-decoration: underline; }
+  .footer__link-list a, .footer__link-button { transition: color var(--motion-duration-base) var(--motion-ease); }
+  /* No underlines in the footer (Constanza): hover shifts color instead. */
+  .footer__link-list a:hover, .footer__link-button:hover { color: var(--cta); }
 
   .footer__about { display: flex; flex-direction: column; gap: var(--space-sm); margin-block-start: var(--space-sm); }
-  .footer__logo { max-width: 9rem; max-height: 3rem; width: auto; height: auto; object-fit: contain; }
+  /* Two-tone logo (navy parts in white, teal kept) straight on the footer — no panel —
+     sized to stay inside its column (Constanza, 2026-10-29). */
+  .footer__logo { align-self: flex-start; max-width: min(100%, 13rem); max-height: 4rem; width: auto; height: auto; object-fit: contain; }
   .footer__logo-text { font-weight: 700; font-size: 1.1rem; color: var(--footer-heading); }
   .footer__about-text { margin: 0; font-size: var(--font-size-sm); opacity: 0.85; line-height: 1.5; }
   .footer__about .footer__link-list { margin-block-start: 0; }
 
   .footer__social-icons { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
-  .footer__social-icon { color: inherit; display: inline-flex; font-size: 1.4rem; opacity: 0.85; }
+  .footer__social-icon { color: inherit; text-decoration: none; display: inline-flex; font-size: 1.4rem; opacity: 0.85; }
   .footer__social-icon:hover { opacity: 1; }
 
   .footer__bottom { max-width: var(--container-max); margin-inline: auto; padding: var(--space-lg) var(--space-md); margin-block-start: var(--space-lg); border-block-start: 1px solid var(--footer-border); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-sm); font-size: var(--font-size-sm); }

@@ -6,12 +6,13 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
 import GravityFormEmbed from "../components/GravityFormEmbed.astro";
+import banner from "../assets/services/photos/service-20-content2.jpg";
 ---
 
-<BaseLayout title="Online Forms" description="New patient and other online forms.">
-  <PageHeaderBanner heading="Online Forms" />
+<BaseLayout title="New Client Registration" description="New to North Churton Animal Hospital in Hillsborough, NC? Register your pet online before your first visit to save time when you arrive for check-in.">
+  <PageHeaderBanner heading="New Client Registration" image={banner} imageAlt="Happy golden retriever" />
   <div class="page-section">
-    <GravityFormEmbed formId="new-patient" context="general-info" heading="New Patient Form" />
+    <GravityFormEmbed formId="new-patient" context="general-info" heading="Register Your Pet" />
   </div>
 </BaseLayout>
 

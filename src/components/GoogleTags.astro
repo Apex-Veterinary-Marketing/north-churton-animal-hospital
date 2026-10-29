@@ -1,0 +1,24 @@
+---
+// Google Analytics 4 (+ Google Ads when set) via gtag.js, IDs from site.ts. The loader only
+// runs on site.trackingHosts so dev and preview visits aren't recorded.
+import { getSiteInfo } from "../lib/data/site";
+
+const site = await getSiteInfo();
+const ids = [site.ga4Id, site.googleAdsId].filter((id): id is string => Boolean(id));
+const hosts = site.trackingHosts ?? [];
+---
+
+{ids.length > 0 && hosts.length > 0 && (
+  <script is:inline define:vars={{ ids, hosts }}>
+    if (hosts.includes(location.hostname)) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      ids.forEach((id) => window.gtag("config", id));
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + ids[0];
+      document.head.appendChild(s);
+    }
+  </script>
+)}

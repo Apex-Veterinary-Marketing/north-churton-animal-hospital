@@ -1,0 +1,42 @@
+---
+// Your First Vet Visit — ported from the client's /services/your-first-visit/
+// (copy verbatim). The New Client form link now points at /online-forms (our
+// Gravity Form). The payment list follows the onboarding form, and the
+// duplicate testimonials stay on the Reviews page.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeaderBanner from "../components/PageHeaderBanner.astro";
+import PaymentLogos from "../components/PaymentLogos.astro";
+import { getSiteInfo } from "../lib/data/site";
+import { phoneHref } from "../lib/utils/phone";
+import banner from "../assets/services/photos/service-15-cover.jpg";
+
+const site = await getSiteInfo();
+---
+
+<BaseLayout title="Your First Vet Visit" description="Planning your pet's first visit to North Churton Animal Hospital in Hillsborough, NC? Here's what to bring, what to expect and how you can pay for your pet's care.">
+  <PageHeaderBanner heading="Your First Vet Visit" image={banner} imageAlt="German shepherd outdoors" />
+  <div class="page-body prose">
+    <h2>First visits are all about getting to know each other, with the goal of helping you and your pets feel comfortable and establishing a lasting relationship.</h2>
+    <h3>Here is a list of things you can bring to help your first visit go smoothly:</h3>
+    <ul>
+      <li>Fill out our <a href="/online-forms">"New client" form online</a> or print and bring in a copy</li>
+      <li>Patient's medical records</li>
+      <li>Any vaccine history you may have from a breeder, adoption agency, or humane society</li>
+      <li>Information about your pet's diet and/or medication</li>
+      <li>A fresh stool sample (no more than 4 hours old)</li>
+    </ul>
+    <a class="btn btn--main" href="/online-forms">New Client Registration</a>
+    <p class="callout first-visit__call">If you have any questions about your pet's first veterinary visit, give us a call at <a href={phoneHref(site)} class="nowrap">{site.phoneNumber}</a>.</p>
+
+    <h2>Easy Payment Options for Covering the Cost of Pet Care</h2>
+    <p>Covering your pet's medical expenses can be difficult, especially when unexpected circumstances arise. We offer a variety of payment options to help make it easier to cover your pet's health care options. Unless otherwise specified, payment is due at the time of service.</p>
+    <PaymentLogos surface="card" />
+    <p class="first-visit__more">See every option, including Cherry payment plans, on our <a href="/payment-plans">Payment Plans</a> page.</p>
+    <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+  </div>
+</BaseLayout>
+
+<style>
+  .first-visit__more { margin-block: var(--space-lg); }
+  .first-visit__call { margin-block-start: var(--space-lg); }
+</style>

@@ -11,7 +11,7 @@ import DoctorGrid from "../components/DoctorGrid.astro";
 import StaffGrid from "../components/StaffGrid.astro";
 import { getAllDoctors } from "../lib/data/doctors";
 import { getAllStaff } from "../lib/data/staff";
-import bannerGeneric from "../assets/banner-generic.png";
+import bannerPhoto from "../assets/site/kitten-and-puppy-cuddling.jpg";
 
 const doctors = await getAllDoctors();
 const staff = await getAllStaff();
@@ -19,52 +19,57 @@ const staff = await getAllStaff();
 const clinicBlurbs = [
   {
     heading: "What We Stand For",
-    body: "A short paragraph on why the practice exists and what it's ultimately here to do for pets and their people goes here — replace with real client copy.",
+    body: "We're here so Hillsborough families have a veterinary hospital they can count on for the long haul, one that treats their pets the way they do: as family.",
   },
   {
     heading: "Where We're Headed",
-    body: "A short paragraph on what the practice is working toward — the kind of care it wants to keep building toward over time — goes here.",
+    body: "We want to keep earning a place in our clients' lives for generations of pets, growing our wellness, dental and surgical care while staying the friendly hometown hospital Hillsborough knows.",
   },
   {
     heading: "How We Care For Your Pet",
-    body: "A short paragraph on the practice's day-to-day philosophy of care — how appointments feel, what pet owners can expect — goes here.",
+    body: "Every visit starts with listening to you and gently examining your pet from nose to tail. We explain what we find in plain language, share your options, and make a plan together. When your pet is sick, we do our best to see them the same day.",
   },
 ];
 ---
 
-<BaseLayout title="Meet the Team" description="Meet our doctors and staff.">
-  <PageHeaderBanner heading="Meet the Team" image={bannerGeneric} />
+<BaseLayout title="Meet the Team" description="Meet Dr. James Miller, Dr. Korinn Saker and the North Churton Animal Hospital team caring for dogs and cats in Hillsborough, NC since 2006.">
+  <PageHeaderBanner heading="Meet the Team" image={bannerPhoto} imageAlt="Kitten and puppy cuddling in the grass" />
 
-  {doctors.length > 0 && (
-    <section class="page-section">
-      <h2>Our Doctors</h2>
-      <DoctorGrid doctors={doctors} />
-    </section>
-  )}
+  <section class="page-section team">
+    <div class="team__intro">
+      <span class="eyebrow">About our team</span>
+      <h2>Familiar faces who know your pet by name</h2>
+      <p class="about-staff__body">Dr. James Miller grew up on a small farm in northern Orange County and founded North Churton Animal Hospital in his hometown of Hillsborough in 2006. Today he and Dr. Korinn Saker lead a close-knit team that gets to know each pet by name. Whether you're bringing in a new puppy or a senior cat, you'll be greeted by familiar faces who care about your pet as much as you do.</p>
+    </div>
 
-  <section class="page-section about-clinic">
-    <h2>About Our Practice</h2>
-    <div class="about-clinic__grid">
-      {clinicBlurbs.map((blurb) => (
-        <div class="about-clinic__item">
-          <h3>{blurb.heading}</h3>
-          <p>{blurb.body}</p>
-        </div>
-      ))}
+    {doctors.length > 0 && (
+      <div class="team__group">
+        <h3 class="team__label">Our Veterinarian{doctors.length > 1 ? "s" : ""}</h3>
+        <DoctorGrid doctors={doctors} />
+      </div>
+    )}
+
+    {staff.length > 0 && (
+      <div class="team__group">
+        <h3 class="team__label">Our Staff</h3>
+        <StaffGrid staff={staff} />
+      </div>
+    )}
+  </section>
+
+  <section class="about-clinic">
+    <div class="page-section">
+      <h2>About Our Practice</h2>
+      <div class="about-clinic__grid">
+        {clinicBlurbs.map((blurb) => (
+          <div class="about-clinic__item">
+            <h3>{blurb.heading}</h3>
+            <p>{blurb.body}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
-
-  <section class="page-section about-staff">
-    <h2>About Our Team</h2>
-    <p class="about-staff__body">A paragraph describing the team as a whole goes here — replace with real client copy about the people behind the practice, their experience, and what pet owners can expect when they meet them.</p>
-  </section>
-
-  {staff.length > 0 && (
-    <section class="page-section">
-      <h2>Our Staff</h2>
-      <StaffGrid staff={staff} />
-    </section>
-  )}
 </BaseLayout>
 
 <style>
@@ -75,5 +80,10 @@ const clinicBlurbs = [
   .about-clinic__item h3 { margin: 0 0 var(--space-xs); font-size: var(--font-size-md); color: var(--main); }
   .about-clinic__item p { margin: 0; color: var(--text-muted); }
 
-  .about-staff__body { max-width: 48rem; }
+  .about-staff__body { max-width: 48rem; font-size: var(--font-size-md); line-height: 1.7; }
+  .team__intro h2 { margin: var(--space-sm) 0 var(--space-md); font-size: var(--font-size-3xl); }
+  /* Doctors and staff sit in one section so the two groups read together. */
+  .team__group { margin-block-start: var(--space-xl); }
+  .team__label { margin: 0 0 var(--space-md); font-size: var(--font-size-xs); letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
+  .about-clinic { background: var(--solid-bg); }
 </style>

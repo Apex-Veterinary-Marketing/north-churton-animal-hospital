@@ -1,28 +1,51 @@
 ---
-// CMS-powered. Listing-page card (e.g. Meet the Team). Staff's real
-// Webflow schema has no bioShort (see content.config.ts) so this card
-// shows position instead, generalized from the staff detail page's real
-// image/name pattern (detail_staff.html). See Skeleton-Build-Spec.md §6.
+// CMS-powered staff card for Meet the Team: compact (photo, name, position),
+// lighter than the featured doctor cards. The bio opens in a modal rather
+// than a separate page (Constanza, 2026-10-28).
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import Modal from "./Modal.astro";
+import { initialsOf } from "../lib/utils/initials";
 
 export interface Props {
   staffMember: CollectionEntry<"staff">;
 }
 const { staffMember } = Astro.props;
+const modalId = `bio-${staffMember.id}`;
 ---
 
-<a class="staff-card" href={`/staff/${staffMember.id}`}>
-  {staffMember.data.image && (
+<article class="staff-card">
+  {staffMember.data.image ? (
     <Image src={staffMember.data.image} alt={staffMember.data.imageAltText || staffMember.data.name} class="staff-card__image" />
+  ) : (
+    <span class="staff-card__monogram" aria-hidden="true">{initialsOf(staffMember.data.name)}</span>
   )}
   <h3 class="staff-card__name">{staffMember.data.name}</h3>
   {staffMember.data.position && <p class="staff-card__position">{staffMember.data.position}</p>}
-</a>
+  {staffMember.data.bio && (
+    <button type="button" class="staff-card__more" data-modal-target={modalId}>Read full bio <span aria-hidden="true">&rarr;</span></button>
+  )}
+</article>
+
+{staffMember.data.bio && (
+  <Modal id={modalId}>
+    <div class="bio-modal">
+      <h2 class="bio-modal__name">{staffMember.data.name}</h2>
+      {staffMember.data.position && <p class="bio-modal__position">{staffMember.data.position}</p>}
+      <div class="bio-modal__text" set:html={staffMember.data.bio} />
+    </div>
+  </Modal>
+)}
 
 <style>
-  .staff-card { display: flex; flex-direction: column; gap: var(--space-sm); text-decoration: none; color: inherit; }
-  .staff-card__image { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius-md); }
-  .staff-card__name { margin: 0; font-size: var(--font-size-md); }
+  .staff-card { display: flex; flex-direction: column; gap: var(--space-xs); }
+  .staff-card__image, .staff-card__monogram { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); }
+  .staff-card__monogram { display: grid; place-items: center; background: var(--solid-bg); color: var(--main); font-family: var(--font-heading); font-size: var(--font-size-3xl); font-weight: 600; }
+  .staff-card__name { margin: var(--space-xs) 0 0; font-size: var(--font-size-lg); }
   .staff-card__position { margin: 0; font-size: var(--font-size-sm); color: var(--text-muted); }
+  .staff-card__more { align-self: flex-start; padding: 0; border: 0; background: none; color: var(--main); font: inherit; font-weight: 600; cursor: pointer; }
+  .staff-card__more:hover { color: var(--main-light); }
+  .bio-modal__name { margin: 0; padding-inline-end: var(--space-xl); }
+  .bio-modal__position { margin: var(--space-2xs) 0 var(--space-md); color: var(--text-muted); }
+  .bio-modal__text :global(p) { line-height: 1.7; }
 </style>

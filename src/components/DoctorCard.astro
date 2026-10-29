@@ -1,30 +1,60 @@
 ---
-// CMS-powered. Listing-page card (e.g. Meet the Team). Not grounded in a
-// staged real-markup reference (meet-the-team.html wasn't part of the
-// export files read for this build) — generalized from the doctor detail
-// page's real image/name/bio pattern (detail_doctors.html) into a compact
-// card. Revisit against real markup if/when meet-the-team.html is read.
-// See Skeleton-Build-Spec.md §6.
+// CMS-powered doctor card for Meet the Team. Doctors get the featured, wide
+// treatment (photo + short bio side by side); the full bio opens in a modal
+// instead of sending people to another page (Constanza, 2026-10-28). The
+// /doctors/[slug] page still exists for SEO and the blog author link.
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import Modal from "./Modal.astro";
+import { initialsOf } from "../lib/utils/initials";
 
 export interface Props {
   doctor: CollectionEntry<"doctors">;
 }
 const { doctor } = Astro.props;
+const modalId = `bio-${doctor.id}`;
+// No headshot yet → a branded monogram instead of a generic avatar.
+const initials = initialsOf(doctor.data.name);
 ---
 
-<a class="doctor-card" href={`/doctors/${doctor.id}`}>
-  {doctor.data.mainImage && (
-    <Image src={doctor.data.mainImage} alt={doctor.data.imageAltText || doctor.data.name} class="doctor-card__image" />
-  )}
-  <h3 class="doctor-card__name">{doctor.data.shortName || doctor.data.name}</h3>
-  {doctor.data.bioShort && <p class="doctor-card__bio" set:html={doctor.data.bioShort} />}
-</a>
+<article class="doctor-card">
+  <div class="doctor-card__media">
+    {doctor.data.mainImage ? (
+      <Image src={doctor.data.mainImage} alt={doctor.data.imageAltText || doctor.data.name} class="doctor-card__image" />
+    ) : (
+      <span class="doctor-card__monogram" aria-hidden="true">{initials}</span>
+    )}
+  </div>
+  <div class="doctor-card__body">
+    <span class="eyebrow">Veterinarian</span>
+    <h3 class="doctor-card__name">{doctor.data.name}</h3>
+    {doctor.data.bioShort && <div class="doctor-card__bio" set:html={doctor.data.bioShort} />}
+    {doctor.data.bio && (
+      <button type="button" class="btn btn--outline doctor-card__more" data-modal-target={modalId}>Read full bio</button>
+    )}
+  </div>
+</article>
+
+{doctor.data.bio && (
+  <Modal id={modalId}>
+    <div class="bio-modal">
+      <h2 class="bio-modal__name">{doctor.data.name}</h2>
+      <div class="bio-modal__text" set:html={doctor.data.bio} />
+    </div>
+  </Modal>
+)}
 
 <style>
-  .doctor-card { display: flex; flex-direction: column; gap: var(--space-sm); text-decoration: none; color: inherit; }
-  .doctor-card__image { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--radius-md); }
-  .doctor-card__name { margin: 0; font-size: var(--font-size-md); }
-  .doctor-card__bio { margin: 0; font-size: var(--font-size-sm); color: var(--text-muted); }
+  .doctor-card { display: grid; grid-template-columns: minmax(12rem, 20rem) 1fr; gap: var(--space-xl); align-items: center; padding: var(--space-lg); border-radius: var(--radius-xl); background: var(--solid-bg); }
+  .doctor-card__image, .doctor-card__monogram { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: calc(var(--radius-xl) - var(--space-xs)); }
+  .doctor-card__monogram { display: grid; place-items: center; background: var(--main); color: var(--white); font-family: var(--font-heading); font-size: var(--font-size-hero); font-weight: 600; }
+  .doctor-card__name { margin: var(--space-sm) 0; font-size: var(--font-size-3xl); line-height: 1.1; }
+  .doctor-card__bio :global(p) { margin: 0 0 var(--space-md); font-size: var(--font-size-md); line-height: 1.7; }
+  .doctor-card__more { margin-block-start: var(--space-xs); }
+  .bio-modal__name { margin: 0 0 var(--space-md); padding-inline-end: var(--space-xl); }
+  .bio-modal__text :global(p) { line-height: 1.7; }
+  @media (max-width: 767px) {
+    .doctor-card { grid-template-columns: 1fr; gap: var(--space-lg); }
+    .doctor-card__media { max-width: 16rem; }
+  }
 </style>

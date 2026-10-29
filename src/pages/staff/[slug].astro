@@ -10,6 +10,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../../components/PageHeaderBanner.astro";
 import { getAllStaff, getStaffBySlug } from "../../lib/data/staff";
+import { getSiteInfo } from "../../lib/data/site";
 
 export async function getStaticPaths() {
   const staff = await getAllStaff();
@@ -18,6 +19,9 @@ export async function getStaticPaths() {
 
 const { staffMember } = Astro.props;
 const heading = staffMember.data.name;
+const site = await getSiteInfo();
+// A job title alone is too short for a meta description.
+const description = `Meet ${heading}${staffMember.data.position ? `, ${staffMember.data.position}` : ""} at ${site.practiceName} in ${site.cityState}.`;
 
 const graph = [
   {
@@ -30,7 +34,7 @@ const graph = [
 ];
 ---
 
-<BaseLayout title={heading} description={staffMember.data.position} schemaGraph={graph}>
+<BaseLayout title={heading} description={description} schemaGraph={graph}>
   <PageHeaderBanner heading={heading} />
 
   <div class="general-section">

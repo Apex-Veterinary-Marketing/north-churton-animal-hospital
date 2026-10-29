@@ -1,0 +1,36 @@
+---
+// Payment Plans — same URL as the client's old page, which was only the Cherry
+// widget. Accepted methods follow the onboarding form (cash, credit, debit,
+// Cherry, CareCredit; Trupanion insurance), with the brands' logos.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeaderBanner from "../components/PageHeaderBanner.astro";
+import PaymentLogos from "../components/PaymentLogos.astro";
+import CherryWidget from "../components/CherryWidget.astro";
+import banner from "../assets/services/photos/service-9-cover.jpg";
+---
+
+<BaseLayout title="Payment Plans" description="Pay for your pet's care your way at North Churton Animal Hospital in Hillsborough, NC: cash, cards, Cherry payment plans, CareCredit financing and Trupanion pet insurance.">
+  <PageHeaderBanner heading="Payment Plans" image={banner} imageAlt="Yorkshire terrier mix resting in a dog bed" />
+  <div class="page-body prose">
+    <h2>Easy payment options for your pet's care</h2>
+    <p>Covering your pet's medical expenses can be difficult, especially when unexpected circumstances arise. We offer a variety of payment options to help make it easier to cover your pet's health care. Unless otherwise specified, payment is due at the time of service.</p>
+    <ul>
+      <li>Cash</li>
+      <li>Major credit cards, including Visa, MasterCard, American Express, and Discover</li>
+      <li>Debit cards</li>
+      <li>Cherry payment plans</li>
+      <li>CareCredit</li>
+      <li>Trupanion pet insurance</li>
+    </ul>
+    <PaymentLogos surface="card" />
+    <p class="payment__note"><strong>CareCredit</strong> can be very helpful in financing your veterinary bills, enabling you to set up a convenient payment plan. Learn more at <a href="https://www.carecredit.com/vetmed/" target="_blank" rel="noopener">CareCredit Veterinary</a>.</p>
+  </div>
+  <section class="payment__cherry">
+    <CherryWidget />
+  </section>
+</BaseLayout>
+
+<style>
+  .payment__note { margin-block-start: var(--space-lg); }
+  .payment__cherry { max-width: var(--container-max); margin-inline: auto; padding: 0 var(--space-md) var(--space-2xl); }
+</style>

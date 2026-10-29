@@ -53,6 +53,7 @@ export interface SiteInfo {
   googleReviewCount?: number;
   logoColor?: string; // asset path
   logoWhite?: string; // asset path
+  logoFooter?: string; // asset path — logo variant for the dark footer (falls back to logoWhite)
   footerAbout?: string; // ~160-char practice blurb, Footer's About Us column
   cityState?: string; // "[CITY, ST]" display string
   googleWidgetId?: string;
@@ -74,38 +75,56 @@ export interface SiteInfo {
   // use e.g. ["LocalBusiness", "ProfessionalService"]. A mobile business
   // also sets mobileVet + serviceAreaOfCoverage (→ areaServed).
   businessSchemaType?: string | string[];
+  // Google tag IDs (gtag.js). Loaded only on trackingHosts, so local and
+  // preview visits never reach the client's analytics.
+  ga4Id?: string; // e.g. "G-XXXXXXXXXX"
+  googleAdsId?: string; // e.g. "AW-1234567890"
+  trackingHosts?: string[]; // hostnames that load the tags, e.g. ["example.com", "www.example.com"]
 }
 
 // Placeholder example data — replace during client intake. Kept non-empty
 // so components/pages have something real to render while the skeleton is
 // being built and reviewed.
 export const siteInfo: SiteInfo = {
-  practiceName: "[Practice Name]",
-  phoneNumber: "(000) 000-0000",
-  email: "hello@example.com",
-  address: "123 Main St",
-  addressLine2: "[City, ST 00000]",
-  bookingUrl: "/appointment-request",
-  bookingLabel: "Book Now",
-  cityState: "[City, ST]",
-  hours: "<p>Mon&ndash;Fri: 8am&ndash;6pm<br>Sat: 9am&ndash;1pm<br>Sun: Closed</p>",
-  // Exactly 160 characters — replace during client intake with real copy.
+  practiceName: "North Churton Animal Hospital",
+  businessSchemaType: "VeterinaryCare",
+  phoneNumber: "(919) 644-7387",
+  callTrackingNumber: "+19842176265",
+  address: "636 N Churton St",
+  addressLine2: "Hillsborough, NC 27278",
+  addressLocality: "Hillsborough",
+  addressRegion: "NC",
+  postalCode: "27278",
+  addressLink:
+    "https://www.google.com/maps/search/?api=1&query=North+Churton+Animal+Hospital%2C+636+N+Churton+St%2C+Hillsborough%2C+NC+27278",
+  mapEmbedLink:
+    "https://maps.google.com/maps?q=North+Churton+Animal+Hospital%2C+636+N+Churton+St%2C+Hillsborough%2C+NC+27278&output=embed",
+  serviceAreaOfCoverage:
+    "Hillsborough, Durham, Efland, Chapel Hill, Mebane, Prospect Hills, Cedar Grove, Orange Grove, Roxboro, Rougemont, Schley",
+  // Appointments go through the client's TheVetHero portal (same setup as Durham, 2026-10-29).
+  bookingUrl: "https://pp.thevethero.com/north-churton-animal-hospital/login",
+  bookingLabel: "Book an Appointment",
+  businessDescription:
+    "North Churton Animal Hospital is a full-service veterinary hospital in Hillsborough, NC, caring for dogs and cats since 2006 with wellness exams, diagnostics, dentistry and surgery.",
+  openingHoursSpecification: [
+    { dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "17:30" },
+  ],
+  cityState: "Hillsborough, NC",
+  hours:
+    "<p>Mon&ndash;Fri: 8:00am&ndash;5:30pm<br>Sat&ndash;Sun: Closed</p><p>Please call for doctor&rsquo;s appointment availability.</p>",
+  afterHours:
+    "<p>Triangle Veterinary Referral Hospital<br>608 Morreene Rd, Durham, NC 27705<br>(919) 489-0615</p>",
   footerAbout:
-    "[Practice Name] provides compassionate, high-quality veterinary care for dogs, cats, and other companion animals throughout [City, ST] and the surrounding area.",
-  // Example values — replace during client intake. Kept non-empty (same
-  // reasoning as the other placeholder fields above) so ReputationWidget's
-  // "leave a public review" stage actually has links to render instead of
-  // silently filtering all three out.
-  googleReviewsLink: "https://g.page/r/example/review",
-  facebookReviewsLink: "https://www.facebook.com/example/reviews",
-  yelpReviewLink: "https://www.yelp.com/biz/example",
-  googleRating: 4.8, // example value — matches the real V2 export's placeholder rating
-  googleReviewCount: 120, // example value only, not sourced from anywhere real
-  url: "https://example.com", // REPLACE with the real domain before launch — see the field comment above
-  // Placeholder mark + wordmark (scripts/generate-logo-placeholders.mjs) —
-  // proves Header's crossfade renders end-to-end. REPLACE both with the
-  // client's real logo files before launch (same public/ paths, or update
-  // these to point at new ones).
-  logoWhite: "/logo-white.svg",
-  logoColor: "/logo-color.svg",
+    "North Churton Animal Hospital has cared for Hillsborough dogs and cats since 2006, with wellness exams, diagnostics, dental care, and surgery from a caring team.",
+  googleReviewsLink: "https://goo.gl/maps/q19BJMJYLYg6FGk29",
+  facebookReviewsLink: "https://www.facebook.com/NorthChurtonAnimalHospital/reviews",
+  // REPLACE with the real domain at launch (the old site's address, until DNS moves).
+  url: "https://northchurtonanimalhospital.com",
+  logoWhite: "/logo-white.png",
+  logoColor: "/logo-color.png",
+  logoFooter: "/logo-footer.png",
+  // The client's existing GA4 property (from the old site), so reporting continues after launch.
+  ga4Id: "G-GQ2CSWYRGD",
+  trackingHosts: ["northchurtonanimalhospital.com", "www.northchurtonanimalhospital.com"],
 };
+

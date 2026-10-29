@@ -1,0 +1,44 @@
+---
+// Cherry payment-plan widget (hero, calculator, how-it-works and FAQ
+// sections), embedded on /payment-plans like the client's live page.
+// widget.js mounts each section into the element whose id is that section's
+// name. Colors come from the live tokens at runtime: --main and --cta are
+// the same navy/teal the client's old embed passed in by hand.
+import { cherryAccount } from "../data/cherry";
+
+const sections = ["hero", "calculator", "howitworks", "faq"];
+---
+
+<div class="cherry-widget">
+  {sections.map((id) => <div id={id}></div>)}
+</div>
+
+<script is:inline define:vars={{ cherryAccount, sections }}>
+  (function (w, d, s, o, f, js, fjs) {
+    w[o] = w[o] || function () { (w[o].q = w[o].q || []).push(arguments); };
+    if (d.getElementById(o)) return;
+    (js = d.createElement(s)), (fjs = d.getElementsByTagName(s)[0]);
+    js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+  })(window, document, "script", "_hw", "https://files.withcherry.com/widgets/widget.js");
+  (function () {
+    var css = getComputedStyle(document.documentElement);
+    _hw(
+      "init",
+      {
+        debug: false,
+        variables: cherryAccount,
+        styles: {
+          primaryColor: css.getPropertyValue("--main").trim(),
+          secondaryColor: css.getPropertyValue("--cta").trim(),
+          fontFamily: "Figtree",
+          headerFontFamily: "Outfit",
+        },
+      },
+      sections
+    );
+  })();
+</script>
+
+<style>
+  .cherry-widget { min-block-size: 20rem; }
+</style>

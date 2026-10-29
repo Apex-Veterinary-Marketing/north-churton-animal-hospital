@@ -29,6 +29,7 @@ import { getAllSocialLinks } from "../lib/data/socialLinks";
 import { SOCIAL_ICON_CLASSES, SOCIAL_LABELS } from "../lib/icons/social";
 import { phoneHref } from "../lib/utils/phone";
 import { BLOG_BASE } from "../lib/data/blog";
+import { jobs } from "../data/careers";
 
 const site = await getSiteInfo();
 const categories = await getAllServiceCategories();
@@ -107,7 +108,10 @@ const socialLinks = await getAllSocialLinks();
               widget). Rename or re-route items; don't remove them. */}
           <ul class="header__dropdown-menu">
             <li><a href="/meet-the-team">Meet the Team</a></li>
-            <li><a href="/photo-gallery">Photo Gallery</a></li>
+            {/* No clinic photos yet, so Payment Plans (from the old About menu) takes the gallery's place. */}
+            <li><a href="/payment-plans">Payment Plans</a></li>
+            <li><a href="/reviews">Reviews</a></li>
+            <li><a href="/faq">FAQs</a></li>
             <li><button type="button" class="header__dropdown-link-button" data-modal-target="reputation-widget">How'd We Do?</button></li>
           </ul>
         </li>
@@ -129,18 +133,22 @@ const socialLinks = await getAllSocialLinks();
                 </ul>
               </li>
             ))}
+            <li class="header__dropdown-item header__dropdown-item--all"><a href="/your-first-visit">Your First Vet Visit</a></li>
+            <li class="header__dropdown-item header__dropdown-item--all"><a href="/online-forms">New Client Form</a></li>
             <li class="header__dropdown-item header__dropdown-item--all"><a href="/services">All Services</a></li>
           </ul>
         </li>
 
+        {/* Top level mirrors the old site (Home, About, Veterinary Services, Blog, Careers, Contact). */}
+        <li class="header__menu-item"><a class="header__menu-link" href={BLOG_BASE}>Blog</a></li>
+
         <li class="header__menu-item header__menu-item--dropdown">
           <button class="header__menu-link header__dropdown-toggle" type="button" data-dropdown-toggle aria-expanded="false">
-            For Pet Owners <span class="header__caret" aria-hidden="true"></span>
+            Careers <span class="header__caret" aria-hidden="true"></span>
           </button>
           <ul class="header__dropdown-menu">
-            <li><a href="/faq">FAQs</a></li>
-            <li><a href="/online-forms">New Patient Forms</a></li>
-            <li><a href={BLOG_BASE}>Our Blog</a></li>
+            <li><a href="/careers">Careers</a></li>
+            {jobs.map((job) => <li><a href={`/careers/${job.slug}`}>{job.shortTitle} Job</a></li>)}
           </ul>
         </li>
 
@@ -149,7 +157,7 @@ const socialLinks = await getAllSocialLinks();
 
       {site.phoneNumber && (
         <a class="header__mobile-call" href={phoneHref(site)} aria-label={`Call us at ${site.phoneNumber}`}>
-          <span aria-hidden="true">&#128222;</span>
+          <i class="icon-call" aria-hidden="true"></i>
         </a>
       )}
     </div>
@@ -182,7 +190,7 @@ const socialLinks = await getAllSocialLinks();
      combined string is long and the utility bar is narrow. */
   .header__utility-item--address { white-space: nowrap; }
   .header__utility-actions { display: flex; align-items: center; gap: var(--space-sm); }
-  .header__social-link { color: inherit; display: inline-flex; font-size: 1.1rem; }
+  .header__social-link { color: inherit; text-decoration: none; display: inline-flex; font-size: 1.1rem; }
   .header__cta { display: inline-block; background: var(--cta); color: var(--on-cta); padding: var(--space-xs) var(--space-md); border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; transition: background-color var(--motion-duration-fast) var(--motion-ease); }
   .header__cta:hover { background: var(--cta-hover); }
 
@@ -224,7 +232,7 @@ const socialLinks = await getAllSocialLinks();
      this explicitly or the browser's default link color (blue/visited-
      purple) wins over inheritance from --header-fg. Found while testing
      the callbar/widget layout, unrelated to that but a real bug either way. */
-  .header__mobile-call { display: none; color: inherit; }
+  .header__mobile-call { display: none; color: inherit; text-decoration: none; font-size: 1.4rem; }
   .header__mobile-call:visited { color: inherit; }
 
   @media (max-width: 900px) {

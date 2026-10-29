@@ -83,7 +83,7 @@ if (service.data.manualSchema) {
   webPage={{ mainEntity: { "@id": "#service" } }}
   breadcrumb={heading}
 >
-  <PageHeaderBanner heading={heading} image={service.data.pageHeaderImage} />
+  <PageHeaderBanner heading={heading} image={service.data.pageHeaderImage} imageAlt={service.data.pageHeaderImageAlt} />
 
   <div class="services-layout">
     <div class="service-detail">
@@ -104,16 +104,14 @@ if (service.data.manualSchema) {
         block.style === "cta" ? (
           <div class="service-cta">
             <div class="service-cta__body services-content-rt" set:html={block.body} />
-            {site.bookingUrl && <a class="service-cta__button" href={site.bookingUrl}>{site.bookingLabel || "Book Now"}</a>}
+            {site.bookingUrl && <a class="btn btn--cta btn--has-icon service-cta__button" href={site.bookingUrl}>{site.bookingLabel || "Book Now"} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>}
           </div>
         ) : (
-          <div class:list={["service-content-block", i % 2 === 1 && "service-content-block--reverse"]}>
-            {block.image && (
-              <div class="service-content-block__media">
-                <Image src={block.image} alt="" class="service-content-block__image" />
-              </div>
-            )}
+          <div class="service-content-block">
             <div class="service-content-block__body services-content-rt" set:html={block.body} />
+            {block.image && (
+              <Image src={block.image} alt={block.imageAlt ?? ""} widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 52rem" class="service-content-block__image" />
+            )}
           </div>
         )
       )}
@@ -129,15 +127,12 @@ if (service.data.manualSchema) {
 
 <style>
   .services-layout { max-width: var(--container-max); margin-inline: auto; padding: var(--space-xl) var(--space-md); display: flex; gap: var(--space-xl); align-items: flex-start; flex-wrap: wrap; }
-  .service-detail { flex: 1 1 30rem; display: flex; flex-direction: column; gap: var(--space-xl); }
+  .service-detail { flex: 1 1 min(30rem, 100%); min-width: 0; display: flex; flex-direction: column; gap: var(--space-xl); }
   .service-detail__categories { text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--font-size-sm); color: var(--main); }
   .service-detail__featured { background: var(--solid-bg); border-radius: var(--radius-md); padding: var(--space-lg); }
-  .service-content-block { display: flex; flex-wrap: wrap; gap: var(--space-lg); align-items: center; }
-  .service-content-block--reverse { flex-direction: row-reverse; }
-  .service-content-block__media { flex: 1 1 18rem; }
-  .service-content-block__image { width: 100%; height: auto; border-radius: var(--radius-md); }
-  .service-content-block__body { flex: 2 1 24rem; }
-  .service-cta { background: var(--solid-bg); border-radius: var(--radius-md); padding: var(--space-lg); }
-  .service-cta__button { display: inline-block; margin-block-start: var(--space-md); padding: var(--space-sm) var(--space-lg); border-radius: var(--radius-sm); background: var(--cta); color: var(--on-cta); text-decoration: none; font-weight: 600; }
-  .service-cta__button:hover { background: var(--cta-hover); }
+  /* Text, then its photo full width below: reads top to bottom (Constanza, 2026-10-28). */
+  .service-content-block { display: flex; flex-direction: column; gap: var(--space-lg); }
+  .service-content-block__image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-xl); }
+  .service-cta { background: var(--solid-bg); border-radius: var(--radius-xl); padding: var(--space-xl); }
+  .service-cta__button { margin-block-start: var(--space-md); }
 </style>

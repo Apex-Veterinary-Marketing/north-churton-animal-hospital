@@ -27,7 +27,7 @@ const { category } = Astro.props;
 const posts = await getPostsByCategory(category.id);
 ---
 
-<BaseLayout title={category.data.name} description={`${category.data.name} articles`}>
+<BaseLayout title={category.data.name} description={`${category.data.name} articles from North Churton Animal Hospital in Hillsborough, NC, with practical advice to help you keep your dog or cat healthy and happy.`}>
   <PageHeaderBanner heading={category.data.name} />
   <div class="page-section">
     {posts.length > 0 ? (

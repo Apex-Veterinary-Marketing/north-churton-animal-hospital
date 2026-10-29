@@ -14,5 +14,8 @@ const { staff } = Astro.props;
 </div>
 
 <style>
-  .staff-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: var(--space-lg); }
+  /* At most 4 staff cards per row (Constanza, 2026-10-28). */
+  .staff-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-xl) var(--space-lg); }
+  @media (max-width: 900px) { .staff-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 767px) { .staff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
