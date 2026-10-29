@@ -4,8 +4,12 @@
 //   Worker, and the connected one keeps serving its "Hello World" stub.
 // - Workers Builds (Git-connected): build command `npm run build`, deploy
 //   command `npx wrangler deploy`. Every push to main rebuilds and deploys.
-// - Pre-launch preview: set the build variable SITE_URL to the workers.dev
-//   address (see astro.config.mjs); remove it at launch.
+// - Preview: keep the build variable SITE_URL set to the workers.dev address
+//   (see astro.config.mjs), so the preview stays noindexed.
+//
+// This Worker is the STAGING PREVIEW only. Production is GitHub Pages
+// (.github/workflows/deploy-pages.yml, docs/launch/github-pages-launch.md),
+// because the domain's DNS stays at Bluehost. Don't add custom-domain routes.
 {
   "name": "north-churton-animal-hospital",
   "compatibility_date": "2026-09-24",

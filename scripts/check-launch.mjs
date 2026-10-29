@@ -76,10 +76,14 @@ for (const [id, file] of used) {
   if (!configured.has(id)) errors.push(`Form "${id}" (${file}) has no embed in src/data/forms.ts — it would render the placeholder.`);
 }
 
-// 4. Deploy — the Worker name must match the Cloudflare dashboard.
+// 4. Deploy — production is GitHub Pages (2026-10-29): the domain stays on Bluehost DNS,
+// which can't move its nameservers to Cloudflare (docs/launch/github-pages-launch.md).
+// The Cloudflare Worker is the workers.dev preview; its name must match the dashboard.
 const wrangler = read("wrangler.jsonc");
-if (!wrangler) errors.push(`wrangler.jsonc is missing — Cloudflare would deploy its "Hello World" stub.`);
+if (!wrangler) errors.push(`wrangler.jsonc is missing — the workers.dev preview would deploy Cloudflare's "Hello World" stub.`);
 else if (/"name":\s*"skeleton"/.test(wrangler)) errors.push(`wrangler.jsonc "name" is still "skeleton" — set it to the client's Worker name.`);
+if (!read(".github/workflows/deploy-pages.yml")) errors.push(`.github/workflows/deploy-pages.yml is missing — nothing would publish the site to GitHub Pages.`);
+else warnings.push(`Production is GitHub Pages. GitHub can't be checked from here — confirm the repo is public (org is on GitHub Free), Pages Source is "GitHub Actions", and the custom domain is set (docs/launch/github-pages-launch.md).`);
 
 // 5. Content — FAQs per service, leftover placeholder copy, legal pages.
 const servicesDir = "src/content/services";

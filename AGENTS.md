@@ -349,13 +349,31 @@ is removed or renamed from the schema. Automations publish straight to `main` (n
   `SHOW_SCHEDULED=1`.
 - The site is static, so something must rebuild on release day:
   `.github/workflows/scheduled-publish.yml` POSTs the repo secret `DEPLOY_HOOK_URL` weekly. Match its cron
-  weekday to the posts' `pubDate`s. Without the secret, the job skips.
+  weekday to the posts' `pubDate`s. Without the secret, the job skips. **This site:** production is GitHub
+  Pages, and `deploy-pages.yml` has its own Thursday cron, so leave `DEPLOY_HOOK_URL` unset.
 - Content may link ahead to a scheduled post: run rich text through `unlinkScheduledArticles()` and the
   link renders as plain text until the post is live. Service pages already do this.
 - Listing pages: a featured post shown on its own must be excluded from the grid below it, and a category
   filter with no live posts must not render.
 
-## Deploy — Cloudflare Workers
+## Deploy — GitHub Pages (production) and Cloudflare Workers (preview)
+
+**This site (2026-10-29): production is GitHub Pages**, not Cloudflare. The domain's DNS stays at Bluehost,
+and the nameservers can't move to Cloudflare, so Bluehost DNS points the domain at Pages (runbook:
+`docs/launch/github-pages-launch.md`).
+
+- `.github/workflows/deploy-pages.yml` builds and publishes on every push to `main`, after every blog post
+  from an issue (`workflow_run`, because pushes made with `GITHUB_TOKEN` don't start other workflows), every
+  Thursday at 13:00 UTC, and on demand.
+- The custom domain is set in repo **Settings → Pages**, not in the repo (no `CNAME` file; Actions deploys
+  ignore it).
+- **Redirects:** `public/_redirects` is still the one list. Pages ignores that file, so `astro.config.mjs`
+  also turns each rule into a meta-refresh page; the Worker preview keeps the real 301s. Add new redirects
+  to `_redirects` only.
+- The repo must stay **public** while the org is on GitHub Free: Pages on a private repo needs Team, and
+  making it private on Free takes the live site down.
+- The Cloudflare Worker below is the noindexed `workers.dev` staging preview only. Don't attach custom
+  domains to it.
 
 `wrangler.jsonc` ships with the template: static assets from `./dist`, `404-page` not-found handling, and
 `auto-trailing-slash`. Per client:

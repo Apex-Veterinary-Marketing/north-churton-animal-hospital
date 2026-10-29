@@ -142,7 +142,7 @@ export const siteInfo: SiteInfo = {
   // Opens the Google "write a review" box for this location (Place ID from Constanza, 2026-10-29).
   googleReviewsLink: "https://search.google.com/local/writereview?placeid=ChIJfcM_MTffrIkRGVKdrBPwOE0",
   facebookReviewsLink: "https://www.facebook.com/NorthChurtonAnimalHospital/reviews",
-  // REPLACE with the real domain at launch (the old site's address, until DNS moves).
+  // Production domain. The apex is canonical; GitHub Pages 301s www to it.
   url: "https://northchurtonanimalhospital.com",
   logoWhite: "/logo-white.png",
   logoColor: "/logo-color.png",

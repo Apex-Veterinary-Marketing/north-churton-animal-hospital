@@ -1,5 +1,7 @@
 # Old northchurtonanimalhospital.com (WordPress) URLs -> new pages, as 301s served by
-# Cloudflare Workers static assets. Source: client-docs/current-site-copy/_inventory.md.
+# Cloudflare Workers static assets (the workers.dev preview). GitHub Pages (production)
+# ignores this file; astro.config.mjs turns each rule into a meta-refresh page there.
+# Source: client-docs/current-site-copy/_inventory.md.
 # Old URLs that keep their path (/services/, /blog/, /reviews/, /payment-plans/, /careers/…) need no rule.
 # Blog posts were root-level on WordPress; they now live under /blog/.
 /about                                                                 /meet-the-team/                                              301
