@@ -4,10 +4,11 @@
 // exists so the /search route resolves per the routing map (§5).
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
+import bannerPhoto from "../assets/site/banners/cat-56.jpg";
 ---
 
 <BaseLayout title="Search">
-  <PageHeaderBanner heading="Search" />
+  <PageHeaderBanner heading="Search" image={bannerPhoto} imageAlt="Calico cat resting in its carrier" />
   <div class="page-section">
     <form class="search-form" role="search">
       <label for="search-input" class="sr-only">Search</label>

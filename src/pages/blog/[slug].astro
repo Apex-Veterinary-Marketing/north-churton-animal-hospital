@@ -54,7 +54,7 @@ const graph = [
 ---
 
 <BaseLayout title={heading} description={post.data.metaDescription || post.data.postSummary} ogImage={post.data.postThumbnail} ogType="article" schemaGraph={graph}>
-  <PageHeaderBanner heading={post.data.name} />
+  <PageHeaderBanner heading={post.data.name} image={post.data.postThumbnail} imageAlt={post.data.thumbnailAlt ?? ""} />
 
   <div class="blog-post-meta">
     {author ? (

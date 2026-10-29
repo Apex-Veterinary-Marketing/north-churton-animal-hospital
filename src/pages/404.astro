@@ -5,10 +5,11 @@
 // no banner would show transparent-white nav text over a plain white body.
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
+import bannerPhoto from "../assets/site/banners/dog-123.jpg";
 ---
 
 <BaseLayout title="Page Not Found" noindex>
-  <PageHeaderBanner heading="404" />
+  <PageHeaderBanner heading="404" image={bannerPhoto} imageAlt="Smiling veterinarian greeting a happy terrier and its owner" />
   <div class="not-found">
     <p>Sorry, we couldn't find that page.</p>
     <a href="/">Back to Home</a>

@@ -10,6 +10,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
 import { getSiteInfo } from "../lib/data/site";
 import { phoneHref } from "../lib/utils/phone";
+import bannerPhoto from "../assets/site/banners/cat-53.jpg";
 
 const site = await getSiteInfo();
 const effectiveDate = "[Month DD, YYYY]"; // set at launch
@@ -18,7 +19,7 @@ const siteHost = new URL(site.url || "https://example.com").hostname;
 ---
 
 <BaseLayout title="Privacy Policy" description={`How ${site.practiceName} collects, uses, and protects your information.`}>
-  <PageHeaderBanner eyebrow="Legal" heading="Privacy Policy" />
+  <PageHeaderBanner eyebrow="Legal" heading="Privacy Policy" image={bannerPhoto} imageAlt="Veterinarian bandaging a cat's paw" />
   <section class="legal">
     <div class="legal__body">
       <p class="legal__effective">Effective {effectiveDate}</p>

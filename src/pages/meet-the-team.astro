@@ -5,6 +5,7 @@
 // team paragraph, staff grid. The three-blurb grid is page-specific markup
 // (not promoted to a shared component) since it's the only page that needs
 // it right now — revisit if another page wants the same pattern.
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
 import DoctorGrid from "../components/DoctorGrid.astro";
@@ -12,10 +13,13 @@ import StaffGrid from "../components/StaffGrid.astro";
 import PawTrail from "../components/PawTrail.astro";
 import { getAllDoctors } from "../lib/data/doctors";
 import { getAllStaff } from "../lib/data/staff";
+import { getSiteInfo } from "../lib/data/site";
+import aboutPhoto from "../assets/site/banners/cat-63.jpg";
 import bannerPhoto from "../assets/site/kitten-and-puppy-cuddling.jpg";
 
 const doctors = await getAllDoctors();
 const staff = await getAllStaff();
+const site = await getSiteInfo();
 
 const clinicBlurbs = [
   {
@@ -35,6 +39,28 @@ const clinicBlurbs = [
 
 <BaseLayout title="Meet the Team" description="Meet Dr. James Miller, Dr. Korinn Saker and the North Churton Animal Hospital team caring for dogs and cats in Hillsborough, NC since 2006.">
   <PageHeaderBanner heading="Meet the Team" image={bannerPhoto} imageAlt="Kitten and puppy cuddling in the grass" />
+
+  {/* Ported from the client's old /about/ page (verbatim except: boarding dropped — no longer
+     offered — and Saturday hours left out, per the onboarding form). */}
+  <section class="about-practice">
+    <PawTrail placement="top-left" />
+    <div class="about-practice__inner">
+      <div class="about-practice__copy">
+        <span class="eyebrow">About our practice</span>
+        <h2>North Churton Animal Hospital is a full-service veterinary clinic offering the highest standard of veterinary medicine for your companion.</h2>
+        <p>We strive to provide a compassionate and comfortable environment for you and your pet right here in Hillsborough. <strong>We believe in life long wellness care with an emphasis on education and prevention.</strong></p>
+        <p>We offer a <a href="/services">wide range of services for your furry family member</a> including wellness and preventive care, vaccinations, elective surgery, dental cleanings, radiography, in-house blood work, <strong>in-house pharmacy</strong> and a wide range of prescription diets just to name a few. We are equipped to treat emergency cases.</p>
+        <p>Dr. Miller spends half of his time at North Churton Animal Hospital taking care of furry patients and the other half at <a href="https://durhamanimalhospital.com" target="_blank" rel="noopener">Durham Animal Hospital in Durham, NC</a>.</p>
+        <div class="about-practice__actions">
+          <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn--outline" href="/reviews">Read our reviews</a>
+        </div>
+      </div>
+      <div class="about-practice__media">
+        <Image src={aboutPhoto} alt="Two veterinarians examining a Persian cat" widths={[640, 960, 1280]} sizes="(max-width: 900px) 100vw, 40vw" class="about-practice__img" />
+      </div>
+    </div>
+  </section>
 
   <section class="page-section team">
     <div class="team__intro">
@@ -75,6 +101,17 @@ const clinicBlurbs = [
 </BaseLayout>
 
 <style>
+  .about-practice { position: relative; isolation: isolate; overflow: hidden; background: var(--white); padding: var(--space-3xl) var(--space-md) var(--space-xl); }
+  .about-practice__inner { max-width: var(--container-max); margin-inline: auto; display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--space-2xl); align-items: center; }
+  .about-practice__copy h2 { font-size: var(--font-size-3xl); line-height: 1.15; margin: var(--space-sm) 0 var(--space-lg); }
+  .about-practice__copy p { font-size: var(--font-size-md); line-height: 1.75; margin: 0 0 var(--space-md); }
+  .about-practice__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-block-start: var(--space-lg); }
+  .about-practice__img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-xl); box-shadow: var(--shadow-soft); }
+  @media (max-width: 900px) {
+    .about-practice { padding-block: var(--space-2xl) var(--space-lg); }
+    .about-practice__inner { grid-template-columns: 1fr; }
+    .about-practice__img { aspect-ratio: 4 / 3; }
+  }
   .page-section { max-width: var(--container-max); margin-inline: auto; padding: var(--space-xl) var(--space-md); }
   .page-section + .page-section { padding-block-start: 0; }
 

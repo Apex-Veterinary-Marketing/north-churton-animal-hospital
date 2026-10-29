@@ -3,10 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
 import GravityFormEmbed from "../components/GravityFormEmbed.astro";
 import LocationSection from "../components/LocationSection.astro";
+import bannerPhoto from "../assets/site/banners/dog-135.jpg";
 ---
 
 <BaseLayout title="Contact Us" description="Contact North Churton Animal Hospital at 636 N Churton St in Hillsborough, NC. Call (919) 644-7387 or send us a message, open Monday through Friday, 8am to 5:30pm.">
-  <PageHeaderBanner heading="Contact Us" />
+  <PageHeaderBanner heading="Contact Us" image={bannerPhoto} imageAlt="Veterinarian examining a small terrier on the exam table" />
   <div class="page-section">
     <GravityFormEmbed formId="contact" context="contact" heading="Send Us a Message" />
   </div>

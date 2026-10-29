@@ -16,6 +16,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../../components/PageHeaderBanner.astro";
 import { getAllDoctors, getDoctorBySlug } from "../../lib/data/doctors";
 import { stripHtml } from "../../lib/utils/stripHtml";
+import bannerPhoto from "../../assets/site/banners/dog-134.jpg";
 
 export async function getStaticPaths() {
   const doctors = await getAllDoctors();
@@ -40,7 +41,7 @@ const graph = [
 ---
 
 <BaseLayout title={heading} description={plainBioShort} schemaGraph={graph}>
-  <PageHeaderBanner heading={heading} />
+  <PageHeaderBanner heading={heading} image={bannerPhoto} imageAlt="Veterinarian holding a beagle puppy" />
 
   <div class="general-section">
     <div class="doctors-flex">

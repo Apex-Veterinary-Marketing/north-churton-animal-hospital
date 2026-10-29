@@ -10,6 +10,7 @@ import FaqAccordion from "../components/FaqAccordion.astro";
 import { getAllServices } from "../lib/data/services";
 import { getSiteInfo } from "../lib/data/site";
 import { withTrackingPhone } from "../lib/utils/phone";
+import bannerPhoto from "../assets/site/banners/cat-63.jpg";
 
 const site = await getSiteInfo();
 const services = await getAllServices();
@@ -18,7 +19,7 @@ const faqs = services.flatMap((s) => s.data.faqs).map((f) => ({ ...f, answer: wi
 ---
 
 <BaseLayout title="FAQs" description="Answers to common questions about visits, payment options, emergencies and pet care at North Churton Animal Hospital, a full-service veterinary hospital in Hillsborough, NC.">
-  <PageHeaderBanner heading="Frequently Asked Questions" />
+  <PageHeaderBanner heading="Frequently Asked Questions" image={bannerPhoto} imageAlt="Two veterinarians examining a Persian cat" />
   <div class="page-section">
     <FaqAccordion faqs={faqs} />
   </div>

@@ -7,12 +7,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHeaderBanner from "../components/PageHeaderBanner.astro";
 import GravityFormEmbed from "../components/GravityFormEmbed.astro";
 import { getSiteInfo } from "../lib/data/site";
+import bannerPhoto from "../assets/site/banners/dog-166.jpg";
 
 const site = await getSiteInfo();
 ---
 
 <BaseLayout title="General Information Request" description="Have a question for North Churton Animal Hospital? Send our Hillsborough, NC team a general information request and we'll get back to you as soon as we can.">
-  <PageHeaderBanner heading="General Information" />
+  <PageHeaderBanner heading="General Information" image={bannerPhoto} imageAlt="Veterinarian giving a fluffy dog a vaccine" />
   <div class="page-section">
     {site.hours && (
       <div id="hours" class="page-section__hours">

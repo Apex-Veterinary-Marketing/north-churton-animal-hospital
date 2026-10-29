@@ -149,7 +149,8 @@
   --header-height: 8.0625rem; /* fixed header incl. utility bar (measured 129px at every width); main pads by this */
   --callbar-height: 5.5rem; /* mobile call bar; BaseLayout pads <main> by this */
   --logo-height: 3.25rem; /* Design: horizontal logo with tagline needs the extra height to stay legible */
-  --page-header-height: 31.25rem; /* PageHeaderBanner min-height — at least 500px (Constanza) */
+  --logo-height-desktop: 4rem; /* Design: larger header logo on desktop (Constanza, 2026-10-29) */
+  --page-header-height: max(31.25rem, 60vh); /* PageHeaderBanner min-height — at least 500px and 60% of the screen (Constanza, 2026-10-29) */
   --reviews-pill-left: 5.5em; /* ReviewsBand offset, sits right of the a11y button */
 
   /*
@@ -185,4 +186,9 @@
   --color-warning: #92400e; /* amber-800ish — warning text/icon */
   --color-warning-bg: #fef3c7; /* amber-100ish — warning background */
   --color-warning-code-bg: #00000014; /* black @8% — inline <code> highlight inside a warning */
+}
+
+/* Desktop header is taller (bigger logo + booking button): measured 134px. */
+@media (min-width: 901px) {
+  :root { --header-height: 8.375rem; }
 }
