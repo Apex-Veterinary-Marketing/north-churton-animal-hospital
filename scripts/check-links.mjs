@@ -10,6 +10,9 @@
  * Also checks that every tel: link on the site dials ONE number — the one
  * phoneHref() produces (site.callTrackingNumber, else site.phoneNumber). A
  * second number means a link was built by hand and skips call tracking.
+ * The one exception: call links marked data-sister-location (the other
+ * location's card) dial that location's own tracking number, and must all
+ * dial the same one.
  *
  * And that dist/sitemap.xml lists exactly the indexable pages: every built page
  * that isn't noindex, a redirect or the 404 page is in it, and nothing else is.
@@ -42,11 +45,21 @@ const resolves = (url) => {
 
 const broken = new Map();
 const telNumbers = new Map(); // number → pages
+const sisterNumbers = new Map(); // other location's number → pages
 let checked = 0;
 for (const file of files) {
   const page = "/" + path.relative(dist, file).split(path.sep).join("/").replace(/index\.html$/, "");
   const html = fs.readFileSync(file, "utf8");
-  for (const match of html.matchAll(/(?:href|src)="([^"]+)"/g)) {
+  for (const tag of html.matchAll(/<a\s[^>]*data-sister-location[^>]*>/g)) {
+    const tel = tag[0].match(/href="tel:([^"]+)"/);
+    if (!tel) continue;
+    if (!sisterNumbers.has(tel[1])) sisterNumbers.set(tel[1], new Set());
+    sisterNumbers.get(tel[1]).add(page);
+  }
+  // Scan hrefs with the marked other-location anchors removed, so only those
+  // exact links are exempt from the one-number rule.
+  const scanned = html.replace(/<a\s[^>]*data-sister-location[^>]*>/g, "");
+  for (const match of scanned.matchAll(/(?:href|src)="([^"]+)"/g)) {
     const url = match[1];
     if (url.startsWith("tel:")) {
       const num = url.slice(4);
@@ -73,6 +86,12 @@ if (telNumbers.size > 1) {
   }
 } else if (telNumbers.size === 1) {
   console.log(`✔ every tel: link dials ${[...telNumbers.keys()][0]}`);
+}
+if (sisterNumbers.size > 1) {
+  failed = true;
+  console.log(`✖ other-location call links dial ${sisterNumbers.size} different numbers: ${[...sisterNumbers.keys()].join(", ")}`);
+} else if (sisterNumbers.size === 1) {
+  console.log(`✔ other-location call links dial ${[...sisterNumbers.keys()][0]}`);
 }
 if (broken.size === 0) {
   console.log("✔ no broken internal links or assets");

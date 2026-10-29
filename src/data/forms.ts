@@ -46,8 +46,17 @@
 // Leave a key out (or empty) and that form renders GravityFormEmbed's
 // placeholder instead — safe to fill these in one at a time during client
 // intake, never blocks a build.
-// North Churton's forms aren't created yet on onboarding.apexveterinarymarketing.com
-// (2026-10-29). Add each embed here (same pattern as sister site Durham:
-// //onboarding.apexveterinarymarketing.com/gfembed/?f=<id> + gfembed.min.js)
-// for contact, general-information-request, reputation-feedback, new-patient.
-export const gravityFormEmbeds: Record<string, string> = {};
+// North Churton's forms on onboarding.apexveterinarymarketing.com (2026-10-29).
+// Appointments go through the TheVetHero portal, so form 788 (Appointment
+// Request) isn't embedded — same setup as sister site Durham.
+const gfScript = `<script src="//onboarding.apexveterinarymarketing.com/wp-content/plugins/gravity-forms-iframe-master/assets/scripts/gfembed.min.js" type="text/javascript"></script>`;
+
+export const gravityFormEmbeds: Record<string, string> = {
+  // General Request Form (787) — /contact-us, the sitewide contact modal and /general-information-request.
+  contact: `<iframe src="//onboarding.apexveterinarymarketing.com/gfembed/?f=787" title="Contact form" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>${gfScript}`,
+  "general-information-request": `<iframe src="//onboarding.apexveterinarymarketing.com/gfembed/?f=787" title="General information request form" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>${gfScript}`,
+  // How'd We Do? (786) — ReputationWidget's negative-feedback stage.
+  "reputation-feedback": `<iframe src="//onboarding.apexveterinarymarketing.com/gfembed/?f=786" title="Feedback form" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>${gfScript}`,
+  // New Patient Form (785) — registration / new client form, /online-forms.
+  "new-patient": `<iframe src="//onboarding.apexveterinarymarketing.com/gfembed/?f=785" title="New client registration form" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>${gfScript}`,
+};
