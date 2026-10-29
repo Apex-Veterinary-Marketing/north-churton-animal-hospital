@@ -21,7 +21,7 @@ const { heading, text, ctaText = site.bookingLabel || "Book Now", ctaHref = site
       <h2 class="cta-band__heading">{heading}</h2>
       {text && <p class="cta-band__text">{text}</p>}
     </div>
-    <a class="cta-band__cta" href={ctaHref}>{ctaText}</a>
+    <a class="cta-band__cta" href={ctaHref} target={/^https?:/.test(ctaHref) ? "_blank" : undefined} rel={/^https?:/.test(ctaHref) ? "noopener" : undefined}>{ctaText}</a>
   </div>
 </section>
 

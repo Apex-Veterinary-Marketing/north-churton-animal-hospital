@@ -64,7 +64,7 @@ const city = (site.cityState ?? "").split(",")[0];
           <PaymentLogos />
         </div>
         <div class="visit__actions">
-          <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn--cta btn--has-icon" href={site.bookingUrl} target="_blank" rel="noopener">{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
           {site.addressLink && <a class="btn btn--outline" href={site.addressLink} target="_blank" rel="noopener">Get directions</a>}
         </div>
       </div>

@@ -40,7 +40,7 @@ const reviews = (await getAllTestimonials())
       <p class="a-hero__lede">{lede}</p>
       {/* Hero actions (Constanza, 2026-10-29): Pet Portal like both old sites, plus services. The phone lives in the header and call bar. */}
       <div class="a-hero__actions">
-        <a class="btn btn--cta btn--has-icon" href={site.portalUrl ?? site.bookingUrl}>Pet Portal <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--cta btn--has-icon" href={site.portalUrl ?? site.bookingUrl} target="_blank" rel="noopener">Pet Portal <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
         <a class="btn btn--ghost-light" href="/services">Our Services</a>
       </div>
       <ul class="a-pills">

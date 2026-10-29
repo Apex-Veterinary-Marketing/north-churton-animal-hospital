@@ -69,7 +69,8 @@ const socialLinks = await getAllSocialLinks();
             <i class={SOCIAL_ICON_CLASSES[social.data.icon]} aria-hidden="true"></i>
           </a>
         ))}
-        {site.bookingUrl && <a class="header__cta" href={site.bookingUrl}>{site.bookingLabel || "Book Now"}</a>}
+        {/* Top-bar button = the client portal, as on the old site; opens in a new tab so visitors keep the site (Constanza, 2026-10-29). */}
+        {(site.portalUrl || site.bookingUrl) && <a class="header__cta" href={site.portalUrl ?? site.bookingUrl} target="_blank" rel="noopener">Client Portal</a>}
       </div>
     </div>
   </div>
