@@ -13,12 +13,12 @@ import { phoneHref } from "../lib/utils/phone";
 import bannerPhoto from "../assets/site/banners/cat-53.jpg";
 
 const site = await getSiteInfo();
-const effectiveDate = "[Month DD, YYYY]"; // set at launch
+const effectiveDate = "October 29, 2026"; // set 2026-10-29 (site build); update if the policy changes
 const telHref = phoneHref(site);
 const siteHost = new URL(site.url || "https://example.com").hostname;
 ---
 
-<BaseLayout title="Privacy Policy" description={`How ${site.practiceName} collects, uses, and protects your information.`}>
+<BaseLayout title="Privacy Policy" description={`How ${site.practiceName} collects, uses and protects the personal information you share through our website, forms and phone calls, and your choices.`}>
   <PageHeaderBanner eyebrow="Legal" heading="Privacy Policy" image={bannerPhoto} imageAlt="Veterinarian bandaging a cat's paw" />
   <section class="legal">
     <div class="legal__body">

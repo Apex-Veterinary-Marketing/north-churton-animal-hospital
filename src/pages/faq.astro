@@ -18,7 +18,7 @@ const services = await getAllServices();
 const faqs = services.flatMap((s) => s.data.faqs).map((f) => ({ ...f, answer: withTrackingPhone(f.answer, site) }));
 ---
 
-<BaseLayout title="FAQs" description="Answers to common questions about visits, payment options, emergencies and pet care at North Churton Animal Hospital, a full-service veterinary hospital in Hillsborough, NC.">
+<BaseLayout title="FAQs" description="Answers to common questions about visits, payment options, emergencies and pet care at North Churton Animal Hospital in Hillsborough, NC.">
   <PageHeaderBanner heading="Frequently Asked Questions" image={bannerPhoto} imageAlt="Two veterinarians examining a Persian cat" />
   <div class="page-section">
     <FaqAccordion faqs={faqs} />

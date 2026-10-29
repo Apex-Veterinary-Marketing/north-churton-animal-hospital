@@ -2,7 +2,7 @@
 name: "Is Your Dog at Risk for Heart Disease?"
 pubDate: 2020-03-17
 titleTag: "Is Your Dog at Risk for Heart Disease?"
-metaDescription: "They greet us at the door. They instinctively know when we need a snuggle…or an extra walk."
+metaDescription: "Is your dog at risk for heart disease? Learn the warning signs to watch for and when to see your vet, from North Churton Animal Hospital in Hillsborough."
 postSummary: "They greet us at the door. They instinctively know when we need a snuggle…or an extra walk."
 postThumbnail: "../../assets/blog/is-your-dog-at-risk-for-heart-disease.jpg"
 thumbnailAlt: "Tabby cat napping on a chair"

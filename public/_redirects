@@ -120,3 +120,6 @@
 # Retired post (named a doctor who is no longer with the practice, 2026-10-29).
 /blog/7-ways-to-calm-your-pets-anxiety                                 /blog/                                                       301
 /blog/7-ways-to-calm-your-pets-anxiety/                                /blog/                                                       301
+# Leftover template category (duplicate of dental-care), removed 2026-10-29.
+/services-categories/dental                                            /services-categories/dental-care/                            301
+/services-categories/dental/                                           /services-categories/dental-care/                            301

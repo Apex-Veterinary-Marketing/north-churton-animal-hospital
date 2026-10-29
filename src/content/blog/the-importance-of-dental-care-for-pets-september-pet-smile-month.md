@@ -1,6 +1,7 @@
 ---
 name: "The Importance of Dental Care for Pets: September Pet Smile Month"
 pubDate: 2024-09-06
+titleTag: "Dental Care for Pets: September Pet Smile Month"
 metaDescription: "Dental Care for Pets - Make Pet Smile Month a time to prioritize your pet’s dental health, a happy pet starts with a healthy mouth."
 postSummary: "The Importance of Dental Care for Pets: September Pet Smile Month – September is Pet Smile Month, a great reminder of how essential dental care is for our furry friends."
 postThumbnail: "../../assets/blog/the-importance-of-dental-care-for-pets-september-pet-smile-month.jpg"

@@ -28,6 +28,7 @@ const heading = doctor.data.name;
 // bioShort is rich text (see content.config.ts) — strip tags before it
 // feeds a plain-text context (meta description, JSON-LD description).
 const plainBioShort = doctor.data.bioShort ? stripHtml(doctor.data.bioShort) : undefined;
+const metaDescription = plainBioShort && plainBioShort.length > 160 ? plainBioShort.slice(0, 157).replace(/\s+\S*$/, "") + "…" : plainBioShort;
 
 const graph = [
   {
@@ -40,7 +41,7 @@ const graph = [
 ];
 ---
 
-<BaseLayout title={heading} description={plainBioShort} schemaGraph={graph}>
+<BaseLayout title={heading} description={metaDescription} schemaGraph={graph}>
   <PageHeaderBanner heading={heading} image={bannerPhoto} imageAlt="Veterinarian holding a beagle puppy" />
 
   <div class="general-section">

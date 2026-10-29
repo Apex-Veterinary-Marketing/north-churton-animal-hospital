@@ -29,9 +29,12 @@ const initials = initialsOf(doctor.data.name);
     <span class="eyebrow">Veterinarian</span>
     <h3 class="doctor-card__name">{doctor.data.name}</h3>
     {doctor.data.bioShort && <div class="doctor-card__bio" set:html={doctor.data.bioShort} />}
-    {doctor.data.bio && (
-      <button type="button" class="btn btn--outline doctor-card__more" data-modal-target={modalId}>Read full bio</button>
-    )}
+    <div class="doctor-card__actions">
+      {doctor.data.bio && (
+        <button type="button" class="btn btn--outline doctor-card__more" data-modal-target={modalId}>Read full bio</button>
+      )}
+      <a class="doctor-card__profile" href={`/doctors/${doctor.id}`}>View profile <span aria-hidden="true">&rarr;</span></a>
+    </div>
   </div>
 </article>
 
@@ -50,7 +53,9 @@ const initials = initialsOf(doctor.data.name);
   .doctor-card__monogram { display: grid; place-items: center; background: var(--main); color: var(--white); font-family: var(--font-heading); font-size: var(--font-size-hero); font-weight: 600; }
   .doctor-card__name { margin: var(--space-sm) 0; font-size: var(--font-size-3xl); line-height: 1.1; }
   .doctor-card__bio :global(p) { margin: 0 0 var(--space-md); font-size: var(--font-size-md); line-height: 1.7; }
-  .doctor-card__more { margin-block-start: var(--space-xs); }
+  .doctor-card__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-lg); margin-block-start: var(--space-xs); }
+  .doctor-card__profile { font-weight: 600; text-decoration: none; }
+  .doctor-card__profile:hover { color: var(--main-light); }
   .bio-modal__name { margin: 0 0 var(--space-md); padding-inline-end: var(--space-xl); }
   .bio-modal__text :global(p) { line-height: 1.7; }
   @media (max-width: 767px) {

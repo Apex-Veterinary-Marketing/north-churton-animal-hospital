@@ -26,6 +26,6 @@ Not too long ago, a [panel of feline veterinarians](http://www.ncbi.nlm.nih.gov/
 **ACTIVITY** – Hiding, less play, decreased grooming, feeding changes
 **PHYSICAL** – Weight shift, hunched posture, squinting, closed eyes, straining to urinate, low head posture, weight loss
 
-This is not an all inclusive list and is certainly no substitution for a [full veterinarian’s diagnosis](/). A strange gait, for example, could be a neurological issue. A change in dining habits and weight loss could be diabetes or other disease.
+This is not an all inclusive list and is certainly no substitution for a [full veterinarian’s diagnosis](/). A strange gait, for instance, could be a neurological issue. A change in dining habits and weight loss could be diabetes or other disease.
 
 At [Durham Animal Hospital](/), we believe the best way to care for pain in any pet is preemptive care with regular checkups, physicals and necessary shots. If you feel your cat or other pet is in pain, be sure to bring them in for a full examination. A round of pain management therapy may be all it takes to get your family cat back in full health.

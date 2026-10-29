@@ -2,7 +2,7 @@
 name: "The Importance of Having an Emergency Vet for Your Pet"
 pubDate: 2015-11-16
 titleTag: "The Importance of Having an Emergency Vet for Your Pet"
-metaDescription: "Do you have an emergency vet you can call if your pet needs help and your vet is closed?"
+metaDescription: "Do you know who to call if your pet has an emergency after hours? Why every pet owner needs an emergency vet plan, from North Churton Animal Hospital."
 postSummary: "Do you have an emergency vet you can call if your pet needs help and your vet is closed? Most communities have an emergency vet available, but you may not know who they are or what emergency number to call."
 postThumbnail: "../../assets/blog/the-importance-of-having-an-emergency-vet-for-your-pet.jpg"
 thumbnailAlt: "Chihuahua resting on a cushion"

@@ -100,7 +100,7 @@ const themeColor = tokensRaw.match(/--main:\s*(#[0-9a-fA-F]{3,8})/)?.[1];
 // is a launch-time content task (see Plan.md §8, B1), not something to
 // generate here, but a page shipping with none at all is a worse default.
 const finalDescription =
-  description?.trim() || `${site.practiceName} — compassionate veterinary care${site.cityState ? ` in ${site.cityState}` : ""}.`;
+  description?.trim() || `${site.practiceName} offers wellness exams, dental care, diagnostics and surgery for dogs and cats${site.cityState ? ` in ${site.cityState}` : ""}. Call or book online.`;
 
 // JSON-LD: site-wide nodes (WebSite, Business — see lib/schema/organization.ts)
 // + this page's WebPage + BreadcrumbList + the page's own nodes, with every

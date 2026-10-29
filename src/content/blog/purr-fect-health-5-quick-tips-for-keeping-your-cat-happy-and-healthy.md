@@ -1,6 +1,7 @@
 ---
 name: "Purr-fect Health: 5 Quick Tips for Keeping Your Cat Happy and Healthy"
 pubDate: 2025-09-12
+titleTag: "Purr-fect Health: 5 Tips for a Happy, Healthy Cat"
 metaDescription: "Purr-fect Health: 5 quick tips for keeping your cat healthy with expert veterinary care at North Churton Animal Hospital in Hillsborough, NC."
 postSummary: "Purr-fect Health: 5 Quick Tips for Keeping Your Cat Happy and Healthy – At North Churton Animal Hospital, we know that cats may not always wear their hearts on their sleeves—but they certainly have them."
 postThumbnail: "../../assets/blog/purr-fect-health-5-quick-tips-for-keeping-your-cat-happy-and-healthy.jpg"

@@ -1,6 +1,7 @@
 ---
 name: "Nextdoor’s 2020 Neighborhood Favorite Awards – North Churton Animal Hospital"
 pubDate: 2020-02-03
+titleTag: "Nextdoor 2020 Neighborhood Favorite: North Churton"
 metaDescription: "Vote for us as your Neighborhood Favorite Veterinarian in Hillsborough NC! Nextdoor’s 2020 Neighborhood Favorite Awards - North Churton Animal Hospital"
 postSummary: "Vote for us as your Neighborhood Favorite Veterinarian in Hillsborough!"
 postThumbnail: "../../assets/blog/nextdoors-2020-neighborhood-favorite-awards-north-churton-animal-hospital.jpg"

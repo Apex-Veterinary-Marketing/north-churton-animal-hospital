@@ -1,4 +1,5 @@
 ---
+import { getSiteInfo } from "../../lib/data/site";
 // CMS-powered: blog posts filtered to one category. Grounded in the real V2
 // export's detail_blog-categories.html — same .blog-posts grid of
 // .blog-posts-card as blog.html, just pre-filtered — reuses
@@ -25,10 +26,11 @@ export async function getStaticPaths() {
 }
 
 const { category } = Astro.props;
+const site = await getSiteInfo();
 const posts = await getPostsByCategory(category.id);
 ---
 
-<BaseLayout title={category.data.name} description={`${category.data.name} articles from North Churton Animal Hospital in Hillsborough, NC, with practical advice to help you keep your dog or cat healthy and happy.`}>
+<BaseLayout title={category.data.name} description={`${category.data.name} from ${site.practiceName} in ${site.cityState}: practical, vet-approved advice to keep your dog or cat healthy and happy.`}>
   <PageHeaderBanner heading={category.data.name} image={bannerPhoto} imageAlt="Veterinarian comforting a black dog on the exam table" />
   <div class="page-section">
     {posts.length > 0 ? (

@@ -2,7 +2,7 @@
 name: "10 Need-to-Know Tips to Care for your Pet Rabbit"
 pubDate: 2017-03-08
 titleTag: "10 Need-to-Know Tips to Care for your Pet Rabbit"
-metaDescription: "The number of domesticated rabbits in the United States is on the rise."
+metaDescription: "Thinking about a pet rabbit? North Churton Animal Hospital in Hillsborough, NC shares the basics of housing, diet and vet care for happy, healthy bunnies."
 postSummary: "The number of domesticated rabbits in the United States is on the rise. Although still not as popular a pet as a cat or a dog, rabbits are well-loved by the families who do have them."
 postThumbnail: "../../assets/blog/care-pet-rabbit.jpg"
 thumbnailAlt: "Gray-and-white cat looking out a window"

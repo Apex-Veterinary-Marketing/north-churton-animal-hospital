@@ -1,6 +1,7 @@
 ---
 name: "Top Pet Health Trends | What Every North Carolina Pet Parent Should Know"
 pubDate: 2026-03-03
+titleTag: "Top Pet Health Trends for North Carolina Pet Parents"
 metaDescription: "The top pet health trends in North Carolina and how preventive, personalized care helps your dog or cat live a longer, healthier life."
 postSummary: "Top Pet Health Trends | What Every North Carolina Pet Parent Should Know – At North Churton Animal Hospital, we know that pets aren’t just animals, they’re family."
 postThumbnail: "../../assets/blog/top-pet-health-trends-what-every-north-carolina-pet-parent-should-know.jpg"

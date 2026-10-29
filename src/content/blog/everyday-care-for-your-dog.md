@@ -2,7 +2,7 @@
 name: "Everyday Care for Your Dog"
 pubDate: 2018-01-08
 titleTag: "Everyday Care for Your Dog"
-metaDescription: "A dog can be a wonderful addition to your family…if you are ready for the responsibility!"
+metaDescription: "A dog can be a wonderful addition to your family. Learn the everyday care your dog needs, from exercise and grooming to vet visits, from North Churton."
 postSummary: "A dog can be a wonderful addition to your family…if you are ready for the responsibility!"
 postThumbnail: "../../assets/blog/everyday-care-for-your-dog.jpg"
 thumbnailAlt: "Bengal cat lounging on a chair"
