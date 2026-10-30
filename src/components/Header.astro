@@ -204,7 +204,7 @@ const socialLinks = await getAllSocialLinks();
   @media (min-width: 901px) {
     .header__utility { font-size: var(--font-size-md); }
     .header__cta { padding: var(--space-xs) var(--space-lg); border-radius: var(--radius-pill); font-size: var(--font-size-md); }
-    .header__logo-stack, .header__logo-stack .header__logo-image { block-size: var(--logo-height-desktop); }
+    .header__logo .header__logo-stack, .header__logo .header__logo-stack .header__logo-image { block-size: var(--logo-height-desktop); } /* outranks the base size rule below */
   }
 
   .header__nav-inner { max-width: var(--container-max); margin-inline: auto; padding: var(--space-sm) var(--space-md); display: flex; align-items: center; gap: var(--space-lg); }

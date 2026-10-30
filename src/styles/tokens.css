@@ -188,7 +188,7 @@
   --color-warning-code-bg: #00000014; /* black @8% — inline <code> highlight inside a warning */
 }
 
-/* Desktop header is taller (bigger logo + booking button): measured 134px. */
+/* Desktop header is taller (bigger logo + booking button). */
 @media (min-width: 901px) {
-  :root { --header-height: 8.375rem; }
+  :root { --header-height: 9.15rem; } /* measured 146.4px with the 4rem desktop logo */
 }
