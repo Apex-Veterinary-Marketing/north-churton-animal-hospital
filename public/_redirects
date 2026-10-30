@@ -123,3 +123,6 @@
 # Leftover template category (duplicate of dental-care), removed 2026-10-29.
 /services-categories/dental                                            /services-categories/dental-care/                            301
 /services-categories/dental/                                           /services-categories/dental-care/                            301
+# Hip Dysplasia service removed at the practice's request, 2026-10-30.
+/services/hip-dysplasia-surgery-hillsborough-nc                        /services-categories/surgery/                                301
+/services/hip-dysplasia-surgery-hillsborough-nc/                       /services-categories/surgery/                                301
