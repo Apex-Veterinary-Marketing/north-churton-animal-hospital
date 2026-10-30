@@ -229,6 +229,7 @@ const reviews = (await getAllTestimonials())
     .a-doctor__list--multi { grid-template-columns: 1fr; }
     .a-doctor__inner, .a-doctor__list--multi .a-doctor__inner { grid-template-columns: 1fr; text-align: center; }
     .a-doctor__portrait { width: 12rem; margin-inline: auto; }
+    .a-doctor__photo { width: 100%; } /* phones/tablets: real headshots span the column */
     .a-hero__scrim { background: var(--alt-bg); }
   }
   /* Phones: show the whole 16:9 video (dog uncropped) above the text; the hero still fills the screen. */
