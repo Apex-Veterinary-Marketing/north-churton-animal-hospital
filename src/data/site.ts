@@ -42,6 +42,8 @@ export interface SiteInfo {
   portalUrl?: string; // client/pet portal (the homepage hero's "Pet Portal" button)
   portalLabel?: string; // top-bar portal button label, as on the old site
   businessDescription?: string; // one or two plain sentences for the schema Business node
+  foundingYear?: string; // year the practice opened — schema foundingDate
+  founderDoctor?: string; // doctors-collection slug of the founding vet, if they founded it — schema founder
   // Machine-readable hours for schema (hours above is display HTML), e.g.
   // [{ dayOfWeek: ["Monday","Tuesday"], opens: "08:00", closes: "18:00" }]
   openingHoursSpecification?: { dayOfWeek: string[]; opens: string; closes: string }[];
@@ -108,6 +110,8 @@ export interface SiteInfo {
 // being built and reviewed.
 export const siteInfo: SiteInfo = {
   practiceName: "North Churton Animal Hospital",
+  foundingYear: "2006",
+  founderDoctor: "dr-james-miller",
   businessSchemaType: "VeterinaryCare",
   phoneNumber: "(919) 644-7387",
   callTrackingNumber: "+19842176265",

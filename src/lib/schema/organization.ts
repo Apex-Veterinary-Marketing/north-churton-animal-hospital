@@ -5,7 +5,8 @@
 //
 //   WebSite    #website   (with a SearchAction → /search)
 //   Business   #business  (@type from site.businessSchemaType; address,
-//                          areaServed, hours, sameAs, booking ReserveAction)
+//                          areaServed, hours, sameAs, booking ReserveAction,
+//                          foundingDate, founder and the doctors as employees)
 //
 // @id conventions (normalizeIds() turns them into absolute URLs):
 //   "#website" / "#business"   site entities → https://domain/#business
@@ -16,6 +17,7 @@
 import { getSiteInfo } from "../data/site";
 import { getAllSocialLinks } from "../data/socialLinks";
 import { BLOG_BASE } from "../data/blog";
+import { getAllDoctors } from "../data/doctors";
 
 /** @ids that name site-wide entities; every other "#name" is page-scoped. */
 export const SITE_ENTITY_IDS = ["#website", "#business"];
@@ -29,6 +31,15 @@ export async function getSiteSchemaNodes(origin: URL): Promise<Record<string, an
   const socials = (await getAllSocialLinks()).map((s) => s.data.link);
   const reviewLinks = [site.googleReviewsLink, site.facebookReviewsLink, site.yelpReviewLink].filter((l): l is string => Boolean(l));
   const areas = (site.serviceAreaOfCoverage || "").split(",").map((s) => s.trim()).filter(Boolean);
+  // Each doctor as a Person, linked to their profile page's own Person node by @id.
+  const doctors = (await getAllDoctors()).map((d) => ({
+    "@type": "Person",
+    "@id": `/doctors/${d.id}#person`,
+    name: d.data.name,
+    jobTitle: "Veterinarian",
+    url: abs(`/doctors/${d.id}/`),
+  }));
+  const founder = doctors.find((d) => d["@id"] === `/doctors/${site.founderDoctor}#person`);
 
   const website = {
     "@type": "WebSite",
@@ -70,6 +81,9 @@ export async function getSiteSchemaNodes(origin: URL): Promise<Record<string, an
     areaServed: areas.map((name) => ({ "@type": "City", name })),
     openingHoursSpecification: (site.openingHoursSpecification || []).map((h) => ({ "@type": "OpeningHoursSpecification", ...h })),
     sameAs: [...new Set([...socials, ...reviewLinks])],
+    foundingDate: site.foundingYear,
+    founder,
+    employee: doctors,
     potentialAction: site.bookingUrl
       ? {
           "@type": "ReserveAction",

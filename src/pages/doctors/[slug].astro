@@ -35,6 +35,8 @@ const graph = [
     "@type": "Person",
     "@id": "#person",
     name: heading,
+    jobTitle: "Veterinarian",
+    url: new URL(Astro.url.pathname, Astro.site ?? Astro.url).href,
     worksFor: { "@id": "#business" },
     description: plainBioShort,
   },
