@@ -40,7 +40,11 @@ const reviews = (await getAllTestimonials())
       <p class="a-hero__lede">{lede}</p>
       {/* Hero actions (Constanza, 2026-10-29): Pet Portal like both old sites, plus services. The phone lives in the header and call bar. */}
       <div class="a-hero__actions">
-        <a class="btn btn--cta btn--has-icon" href={site.portalUrl ?? site.bookingUrl} target="_blank" rel="noopener">Pet Portal <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+        {site.portalUrl ? (
+          <a class="btn btn--cta btn--has-icon" href={site.portalUrl} target="_blank" rel="noopener">Pet Portal <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+        ) : (
+          <a class="btn btn--cta btn--has-icon" href={site.bookingUrl}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+        )}
         <a class="btn btn--ghost-light" href="/services">Our Services</a>
       </div>
       <ul class="a-pills">
@@ -96,7 +100,11 @@ const reviews = (await getAllTestimonials())
       <div class:list={["a-doctor__list", doctors.length > 1 && "a-doctor__list--multi"]}>
         {doctors.map((doctor) => (
           <div class="a-doctor__inner" data-reveal>
-            <div class="a-doctor__portrait" aria-hidden="true">{initialsOf(doctor.data.name)}</div>
+            {doctor.data.mainImage ? (
+              <Image src={doctor.data.mainImage} alt={doctor.data.imageAltText || doctor.data.name} width={480} class="a-doctor__portrait a-doctor__photo" />
+            ) : (
+              <div class="a-doctor__portrait" aria-hidden="true">{initialsOf(doctor.data.name)}</div>
+            )}
             <div class="a-doctor__copy">
               <h2 class="a-h2">{doctor.data.name}</h2>
               <div class="a-doctor__bio" set:html={doctor.data.bioShort} />
@@ -211,6 +219,7 @@ const reviews = (await getAllTestimonials())
   .a-doctor__list--multi .a-doctor__portrait { font-size: var(--font-size-3xl); }
   .a-doctor__inner { display: grid; grid-template-columns: 16rem 1fr; gap: var(--space-xl); align-items: center; }
   .a-doctor__portrait { display: grid; place-items: center; aspect-ratio: 4 / 5; border-radius: var(--radius-xl); background: var(--main-soft); color: var(--white); font-family: var(--font-heading); font-size: var(--font-size-hero); font-weight: 600; box-shadow: var(--shadow-soft); }
+  .a-doctor__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
   .a-doctor .a-h2 { color: inherit; }
   .a-doctor__bio :global(p) { font-size: var(--font-size-md); line-height: 1.7; margin: 0 0 var(--space-lg); }
 

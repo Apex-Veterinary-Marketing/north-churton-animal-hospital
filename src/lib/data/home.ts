@@ -31,10 +31,10 @@ export async function getHomeData() {
     headline: "Where pets are family.",
     lede: "Wellness exams, dental care and surgery for Hillsborough dogs and cats, from Dr. James Miller, Dr. Korinn Saker and a team that knows your pet by name.",
     // The homepage's one set of highlights (hero pills) — don't repeat them elsewhere on the page.
-    highlights: ["Same-day sick visits when we can", "Digital X-rays and in-house lab", "Dogs and cats, puppy to senior"],
+    highlights: ["Same-day sick visits when we can", "Digital X-rays and in-house lab", "Dr. Miller: 30+ years caring for pets"],
     welcome: [
       "Since 2006, North Churton Animal Hospital has cared for the dogs and cats of Hillsborough and nearby towns like Efland, Mebane and Cedar Grove.",
-      "Dr. James Miller, Dr. Korinn Saker and our team know many of our patients from their first puppy and kitten visits through their senior years, and we take the time to explain every option so you can make the right choice for your pet.",
+      "Dr. James Miller, who has cared for pets for more than 30 years, Dr. Korinn Saker and our team know many of our patients from their first puppy and kitten visits through their senior years, and we take the time to explain every option so you can make the right choice for your pet.",
     ],
     payment: "We accept cash, credit and debit cards, CareCredit and Cherry financing, and work with Trupanion pet insurance.",
     landmark: "In front of Dollar General",

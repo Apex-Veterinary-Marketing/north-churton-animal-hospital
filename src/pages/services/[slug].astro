@@ -104,7 +104,7 @@ if (service.data.manualSchema) {
         block.style === "cta" ? (
           <div class="service-cta">
             <div class="service-cta__body services-content-rt" set:html={block.body} />
-            {site.bookingUrl && <a class="btn btn--cta btn--has-icon service-cta__button" href={site.bookingUrl} target="_blank" rel="noopener">{site.bookingLabel || "Book Now"} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>}
+            {site.bookingUrl && <a class="btn btn--cta btn--has-icon service-cta__button" href={site.bookingUrl} target={/^https?:/.test(site.bookingUrl ?? "") ? "_blank" : undefined} rel={/^https?:/.test(site.bookingUrl ?? "") ? "noopener" : undefined}>{site.bookingLabel || "Book Now"} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>}
           </div>
         ) : (
           <div class="service-content-block">

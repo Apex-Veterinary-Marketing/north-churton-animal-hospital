@@ -122,11 +122,10 @@ export const siteInfo: SiteInfo = {
     "https://maps.google.com/maps?q=North+Churton+Animal+Hospital%2C+636+N+Churton+St%2C+Hillsborough%2C+NC+27278&output=embed",
   serviceAreaOfCoverage:
     "Hillsborough, Durham, Efland, Chapel Hill, Mebane, Prospect Hills, Cedar Grove, Orange Grove, Roxboro, Rougemont, Schley",
-  // Appointments go through the client's TheVetHero portal (same setup as Durham, 2026-10-29).
-  bookingUrl: "https://pp.thevethero.com/north-churton-animal-hospital/login",
-  bookingLabel: "Book an Appointment",
-  portalUrl: "https://pp.thevethero.com/north-churton-animal-hospital/login",
-  portalLabel: "Patient Portal",
+  // Client (Pastel, 2026-10-30): "remove portal for now" — booking uses our appointment request form.
+  bookingUrl: "/appointment-request",
+  bookingLabel: "Request an Appointment",
+  // portalUrl / portalLabel: set again when the portal comes back (switching to Pulse).
   businessDescription:
     "North Churton Animal Hospital is a full-service veterinary hospital in Hillsborough, NC, caring for dogs and cats since 2006 with wellness exams, diagnostics, dentistry and surgery.",
   openingHoursSpecification: [
@@ -153,7 +152,7 @@ export const siteInfo: SiteInfo = {
     cityState: "Durham, NC",
     address: "4306 N Roxboro St",
     addressLine2: "Durham, NC 27704",
-    addressLandmark: "Directly behind Captain D's",
+    addressLandmark: "Across from McDonald's",
     addressLink:
       "https://www.google.com/maps/search/?api=1&query=Durham+Animal+Hospital%2C+4306+N+Roxboro+St%2C+Durham%2C+NC+27704",
     phoneNumber: "(919) 620-7387",

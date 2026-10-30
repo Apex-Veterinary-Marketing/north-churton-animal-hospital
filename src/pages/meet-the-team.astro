@@ -52,7 +52,7 @@ const clinicBlurbs = [
         <p>We offer a <a href="/services">wide range of services for your furry family member</a> including wellness and preventive care, vaccinations, elective surgery, dental cleanings, radiography, in-house blood work, <strong>in-house pharmacy</strong> and a wide range of prescription diets just to name a few. We are equipped to treat emergency cases.</p>
         <p>Dr. Miller spends half of his time at North Churton Animal Hospital taking care of furry patients and the other half at <a href="https://durhamanimalhospital.com" target="_blank" rel="noopener">Durham Animal Hospital in Durham, NC</a>.</p>
         <div class="about-practice__actions">
-          <a class="btn btn--cta btn--has-icon" href={site.bookingUrl} target="_blank" rel="noopener">{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+          <a class="btn btn--cta btn--has-icon" href={site.bookingUrl} target={/^https?:/.test(site.bookingUrl ?? "") ? "_blank" : undefined} rel={/^https?:/.test(site.bookingUrl ?? "") ? "noopener" : undefined}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
           <a class="btn btn--outline" href="/reviews">Read our reviews</a>
         </div>
       </div>

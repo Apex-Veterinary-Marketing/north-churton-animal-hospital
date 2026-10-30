@@ -1,0 +1,25 @@
+---
+// Request an Appointment — the client asked to remove the portal for now
+// (Pastel, 2026-10-30), so booking uses the practice's Gravity Form.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHeaderBanner from "../components/PageHeaderBanner.astro";
+import GravityFormEmbed from "../components/GravityFormEmbed.astro";
+import { getSiteInfo } from "../lib/data/site";
+import { phoneHref } from "../lib/utils/phone";
+import bannerPhoto from "../assets/services/photos/service-6-cover.jpg";
+
+const site = await getSiteInfo();
+---
+
+<BaseLayout title="Request an Appointment" description={`Request an appointment at ${site.practiceName} in ${site.cityState}. Send us your details and our team will call you to confirm a time for your pet's visit.`}>
+  <PageHeaderBanner heading="Request an Appointment" image={bannerPhoto} imageAlt="Black-and-white cat and a golden dog side by side" />
+  <div class="page-section">
+    <p class="appt__intro">Fill out the form below and our team will contact you to confirm your appointment. Need help sooner? Call us at <a href={phoneHref(site)} class="nowrap">{site.phoneNumber}</a>.</p>
+    <GravityFormEmbed formId="appointment-request" context="appointment" heading="Appointment Request" />
+  </div>
+</BaseLayout>
+
+<style>
+  .page-section { max-width: 44rem; margin-inline: auto; padding: var(--space-2xl) var(--space-md); }
+  .appt__intro { font-size: var(--font-size-md); line-height: 1.7; margin: 0 0 var(--space-lg); }
+</style>

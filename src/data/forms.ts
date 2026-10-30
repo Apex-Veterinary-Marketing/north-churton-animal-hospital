@@ -52,6 +52,8 @@
 const gfScript = `<script src="//onboarding.apexveterinarymarketing.com/wp-content/plugins/gravity-forms-iframe-master/assets/scripts/gfembed.min.js" type="text/javascript"></script>`;
 
 export const gravityFormEmbeds: Record<string, string> = {
+  // Appointment Request (788) — /appointment-request (portal removed for now, Pastel 2026-10-30).
+  "appointment-request": `<iframe src="//onboarding.apexveterinarymarketing.com/gfembed/?f=788" title="Appointment request form" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>${gfScript}`,
   // General Request Form (787) — /contact-us, the sitewide contact modal and /general-information-request.
   contact: `<iframe src="//onboarding.apexveterinarymarketing.com/gfembed/?f=787" title="Contact form" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>${gfScript}`,
   "general-information-request": `<iframe src="//onboarding.apexveterinarymarketing.com/gfembed/?f=787" title="General information request form" width="100%" height="500" frameBorder="0" class="gfiframe"></iframe>${gfScript}`,

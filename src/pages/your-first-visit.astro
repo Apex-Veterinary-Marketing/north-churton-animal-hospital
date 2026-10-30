@@ -32,7 +32,7 @@ const site = await getSiteInfo();
     <p>Covering your pet's medical expenses can be difficult, especially when unexpected circumstances arise. We offer a variety of payment options to help make it easier to cover your pet's health care options. Unless otherwise specified, payment is due at the time of service.</p>
     <PaymentLogos surface="card" />
     <p class="first-visit__more">See every option, including Cherry payment plans, on our <a href="/payment-plans">Payment Plans</a> page.</p>
-    <a class="btn btn--cta btn--has-icon" href={site.bookingUrl} target="_blank" rel="noopener">{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
+    <a class="btn btn--cta btn--has-icon" href={site.bookingUrl} target={/^https?:/.test(site.bookingUrl ?? "") ? "_blank" : undefined} rel={/^https?:/.test(site.bookingUrl ?? "") ? "noopener" : undefined}>{site.bookingLabel} <span class="btn__icon" aria-hidden="true">&rarr;</span></a>
   </div>
 </BaseLayout>
 
